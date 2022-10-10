@@ -73,13 +73,11 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
   }, [station]);
 
   useEffect(() => {
-    if (seconds <= 0) {
-      if (autoSkipOnTimerEnd) {
-        setStationIndex((state) => state + 1);
-      }
+    if (seconds <= 0 && autoSkipOnTimerEnd) {
+      setStationIndex((state) => state + 1);
       return;
     }
-    const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
+    const interval = setInterval(() => setSeconds((state) => state - 0.1), 100);
     return () => clearInterval(interval);
   }, [seconds]);
 
@@ -99,7 +97,7 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
         Next Station: {station.id} ({stationIndex})
         <br />
         <br />
-        {seconds}s
+        {seconds.toFixed(1)}s
         <br />
         <br />
         <button onClick={clickNextStation}>Start Next Station</button>
@@ -114,10 +112,12 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
           Station {station.id} ({stationIndex}):
         </h2>
         <p>{station.description}</p>
-        {seconds}s
+        {seconds.toFixed(1)}s
         <br />
         <br />
-        <button onClick={clickNextStation}>Start Break</button>
+        <button onClick={clickNextStation}>
+          Start {seconds > 0 ? "Break" : "Next Station"}
+        </button>
       </div>
     </>
   );
