@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/StationView.module.css";
+import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
 import ScoreBoard, { StationTime } from "./ScoreBoard";
 
 export const allStations: Station[] = [
@@ -96,10 +97,11 @@ export default function StationView({
 
   useEffect(() => {
     if (seconds <= 0 && autoSkipOnTimerEnd) {
+      updateStationTimes();
       setStationIndex((state) => state + 1);
       return;
     }
-    const interval = setInterval(() => setSeconds((state) => state - 0.1), 100);
+    const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
     return () => clearInterval(interval);
   }, [seconds]);
 
@@ -123,10 +125,14 @@ export default function StationView({
         stationStatus == StationStatus.BREAK ? (
           <div className={`${styles.card} ${styles.break}`}>
             <h2>Break</h2>
-            Next Station: {station.id} ({stationIndex})
+            Next Station:{" "}
+            {allStations.length > stationIndex + 1 &&
+              allStations[stationIndex + 1].id}{" "}
+            ({stationIndex + 1}
+            )
             <br />
             <br />
-            {seconds.toFixed(1)}s
+            {formatSecondsToMinutesAndSeconds(seconds)}
             <br />
             <br />
             <button onClick={clickNextStation}>Start Next Station</button>
@@ -137,7 +143,7 @@ export default function StationView({
               Station {station.id} ({stationIndex}):
             </h2>
             <p>{station.description}</p>
-            {seconds.toFixed(1)}s
+            {formatSecondsToMinutesAndSeconds(seconds)}
             <br />
             <br />
             <button onClick={clickNextStation}>
