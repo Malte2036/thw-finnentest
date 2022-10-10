@@ -32,3 +32,9 @@
 .startTestButton{
   width: 100px;
 }
+
+.checkBoxContainer {
+  display: inline-block;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}

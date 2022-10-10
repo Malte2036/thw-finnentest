@@ -7,6 +7,7 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);
+  const [autoSkipOnTimerEnd, setAutoSkipOnTimerEnd] = useState<boolean>(false);
 
   function resetTest() {
     setStarted(false);
@@ -25,12 +26,18 @@ const Home: NextPage = () => {
 
         {started ? (
           <StationView
-            autoSkipOnTimerEnd={true}
+            autoSkipOnTimerEnd={autoSkipOnTimerEnd}
             resetTestCallback={resetTest}
           />
         ) : (
           <>
-            <br />
+            <div
+              onClick={() => setAutoSkipOnTimerEnd(!autoSkipOnTimerEnd)}
+              className={styles.checkBoxContainer}
+            >
+              <input type="checkbox" checked={autoSkipOnTimerEnd} />{" "}
+              autoSkipOnTimerEnd
+            </div>
             <button
               onClick={() => setStarted(true)}
               className={styles.startTestButton}
