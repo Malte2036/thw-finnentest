@@ -40,7 +40,11 @@ export type Station = {
   time: number;
 };
 
-export default function StationView() {
+export type StationViewProps = {
+  autoSkipOnTimerEnd: boolean;
+};
+
+export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
@@ -59,6 +63,12 @@ export default function StationView() {
   }, [station]);
 
   useEffect(() => {
+    if (seconds <= 0) {
+      if (autoSkipOnTimerEnd) {
+        setStationIndex((state) => state + 1);
+      }
+      return;
+    }
     const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
     return () => clearInterval(interval);
   }, [seconds]);
@@ -66,7 +76,9 @@ export default function StationView() {
   return (
     <>
       <div className={styles.card}>
-        <h2>Station {station.id}:</h2>
+        <h2>
+          Station {station.id} ({stationIndex}):
+        </h2>
         <p>{station.description}</p>
         {seconds}s
         <br />
