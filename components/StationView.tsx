@@ -54,13 +54,15 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
-  const [seconds, setSeconds] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(100);
 
   const [stationStatus, setStationStatus] = useState<StationStatus>(
     StationStatus.NO_BREAK
   );
 
   const [stationTimes, setStationTimes] = useState<StationTime[]>([]);
+
+  const [finished, setFinished] = useState<boolean>(false);
 
   function updateStationTimes() {
     setStationTimes((state) => [
@@ -71,7 +73,7 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
 
   useEffect(() => {
     if (stationIndex >= allStations.length) {
-      setStationIndex(0);
+      setFinished(true);
       return;
     }
     setStation(allStations[stationIndex]);
@@ -112,30 +114,35 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
   return (
     <>
       <ScoreBoard stationTimes={stationTimes} />
-      {stationStatus == StationStatus.BREAK ? (
-        <div className={`${styles.card} ${styles.break}`}>
-          <h2>Break</h2>
-          Next Station: {station.id} ({stationIndex})
-          <br />
-          <br />
-          {seconds.toFixed(1)}s
-          <br />
-          <br />
-          <button onClick={clickNextStation}>Start Next Station</button>
-        </div>
+
+      {!finished ? (
+        stationStatus == StationStatus.BREAK ? (
+          <div className={`${styles.card} ${styles.break}`}>
+            <h2>Break</h2>
+            Next Station: {station.id} ({stationIndex})
+            <br />
+            <br />
+            {seconds.toFixed(1)}s
+            <br />
+            <br />
+            <button onClick={clickNextStation}>Start Next Station</button>
+          </div>
+        ) : (
+          <div className={styles.card}>
+            <h2>
+              Station {station.id} ({stationIndex}):
+            </h2>
+            <p>{station.description}</p>
+            {seconds.toFixed(1)}s
+            <br />
+            <br />
+            <button onClick={clickNextStation}>
+              Start {seconds > 0 ? "Break" : "Next Station"}
+            </button>
+          </div>
+        )
       ) : (
-        <div className={styles.card}>
-          <h2>
-            Station {station.id} ({stationIndex}):
-          </h2>
-          <p>{station.description}</p>
-          {seconds.toFixed(1)}s
-          <br />
-          <br />
-          <button onClick={clickNextStation}>
-            Start {seconds > 0 ? "Break" : "Next Station"}
-          </button>
-        </div>
+        <h2>Finished</h2>
       )}
     </>
   );
