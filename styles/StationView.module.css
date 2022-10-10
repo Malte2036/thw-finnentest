@@ -13,3 +13,7 @@
 .break {
   border-color: red;
 }
+
+.resetTestButton{
+  width: 100px;
+}

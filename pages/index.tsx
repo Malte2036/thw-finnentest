@@ -1,10 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 import StationView from "../components/StationView";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const [started, setStarted] = useState<boolean>(false);
+
+  function resetTest() {
+    setStarted(false);
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +23,22 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Finnentest</h1>
 
-        <StationView autoSkipOnTimerEnd={true} />
+        {started ? (
+          <StationView
+            autoSkipOnTimerEnd={true}
+            resetTestCallback={resetTest}
+          />
+        ) : (
+          <>
+            <br />
+            <button
+              onClick={() => setStarted(true)}
+              className={styles.startTestButton}
+            >
+              Start Test
+            </button>
+          </>
+        )}
       </main>
     </div>
   );

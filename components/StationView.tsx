@@ -48,9 +48,13 @@ enum StationStatus {
 
 export type StationViewProps = {
   autoSkipOnTimerEnd: boolean;
+  resetTestCallback: () => void;
 };
 
-export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
+export default function StationView({
+  autoSkipOnTimerEnd,
+  resetTestCallback: resetTestCallback,
+}: StationViewProps) {
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
@@ -142,7 +146,15 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
           </div>
         )
       ) : (
-        <h2>Finished</h2>
+        <>
+          <h2>Finished</h2>
+          <button
+            onClick={resetTestCallback}
+            className={styles.resetTestButton}
+          >
+            Reset Test
+          </button>
+        </>
       )}
     </>
   );
