@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Finnentest</h1>
 
-        <StationView autoSkipOnTimerEnd={true} />
+        <StationView autoSkipOnTimerEnd={false} />
       </main>
     </div>
   );

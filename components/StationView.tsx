@@ -40,6 +40,11 @@ export type Station = {
   time: number;
 };
 
+enum StationStatus {
+  BREAK,
+  NO_BREAK,
+}
+
 export type StationViewProps = {
   autoSkipOnTimerEnd: boolean;
 };
@@ -50,6 +55,10 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
 
   const [seconds, setSeconds] = useState<number>(0);
 
+  const [stationStatus, setStationStatus] = useState<StationStatus>(
+    StationStatus.NO_BREAK
+  );
+
   useEffect(() => {
     if (stationIndex >= allStations.length) {
       setStationIndex(0);
@@ -59,7 +68,8 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
   }, [stationIndex]);
 
   useEffect(() => {
-    setSeconds(station.time);
+    setSeconds(station.time * 0.05);
+    setStationStatus(StationStatus.NO_BREAK);
   }, [station]);
 
   useEffect(() => {
@@ -73,6 +83,30 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
     return () => clearInterval(interval);
   }, [seconds]);
 
+  function clickNextStation() {
+    if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
+      setStationStatus(StationStatus.BREAK);
+    } else {
+      setStationIndex((state) => state + 1);
+      setStationStatus(StationStatus.NO_BREAK);
+    }
+  }
+
+  if (stationStatus == StationStatus.BREAK) {
+    return (
+      <div className={`${styles.card} ${styles.break}`}>
+        <h2>Break</h2>
+        Next Station: {station.id} ({stationIndex})
+        <br />
+        <br />
+        {seconds}s
+        <br />
+        <br />
+        <button onClick={clickNextStation}>Start Next Station</button>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={styles.card}>
@@ -83,9 +117,7 @@ export default function StationView({ autoSkipOnTimerEnd }: StationViewProps) {
         {seconds}s
         <br />
         <br />
-        <button onClick={() => setStationIndex((state) => state + 1)}>
-          Next
-        </button>
+        <button onClick={clickNextStation}>Start Break</button>
       </div>
     </>
   );
