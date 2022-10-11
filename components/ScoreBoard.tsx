@@ -1,6 +1,6 @@
 import { Person } from "../models/Person";
+import { allStations, Station } from "../models/Station";
 import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
-import { allStations, Station } from "./StationView";
 
 export type StationTime = {
   station: Station;

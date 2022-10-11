@@ -1,47 +1,11 @@
 import { useEffect, useState } from "react";
 import { Person } from "../models/Person";
 import styles from "../styles/StationView.module.css";
-import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
+import BreakStationCard from "./StationCard/BreakStationCard";
 import ScoreBoard, { StationTime } from "./ScoreBoard";
-
-export const allStations: Station[] = [
-  {
-    id: "Gehen",
-    description:
-      "Gehen ohne und mit zwei Kanistern (Zeit: 4min) 100m gehen mit Kanister (je 16,6 kg) und 100m gehen ohne Kanister",
-    time: 4 * 60,
-  },
-  {
-    id: "Treppe",
-    description:
-      "Stufen rauf und heruntersteigen (Zeit: 3,5 min) ca. 180 Stufen (90 rauf und 90 hinunter)",
-    time: 3.5 * 60,
-  },
-  {
-    id: "Reifen",
-    description:
-      "Hämmern eines LKW-Reifen (Zeit: 2 min) Mit einem Vorschlaghammer (ca. 6kg) muss ein LKW-Reifen (ca. 47kg) über eine Strecke von drei Metern geschlagen werden.",
-    time: 2 * 60,
-  },
-  {
-    id: "Hindernis",
-    description:
-      "Unterkriechen und übersteigen von Hindernissen (Zeit: 3 min)\nAuf einer Länge von acht Metern werden mit einem Abstand von zwei Metern 60cm hohe Hindernisse aufgebaut.  Diese Hindernisse müssen in drei Durchläufen abwechselnd unterkrochen bzw. überstiegen werden.",
-    time: 3 * 60,
-  },
-  {
-    id: "Schlauch",
-    description:
-      "C-Schlauch einfach rollen (Zeit: 2min) Ein C-Schlauch muss einfach aufgerollt werden. Dabei darf sich das Ende nicht von der Stelle bewegen.",
-    time: 2 * 60,
-  },
-];
-
-export type Station = {
-  id: string;
-  description: string;
-  time: number;
-};
+import MainStationCard from "./StationCard/MainStationCard";
+import FinishedStationCard from "./StationCard/FinishedStationCard";
+import { allStations, Station } from "../models/Station";
 
 enum StationStatus {
   BREAK,
@@ -70,7 +34,6 @@ export default function StationView({
 
   const [finished, setFinished] = useState<boolean>(false);
 
-  const [endDruck, setEndDruck] = useState<number | undefined>(undefined);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const startTimestamp = Date.now();
@@ -141,6 +104,11 @@ export default function StationView({
     }
   }
 
+  function setEndDruckCallback(druck: number) {
+    person.druck.end = druck;
+    setRefresh(!refresh);
+  }
+
   return (
     <div className={styles.mainContainer}>
       <ScoreBoard
@@ -156,67 +124,21 @@ export default function StationView({
       {person.druck.end === undefined &&
         (!finished ? (
           stationStatus == StationStatus.BREAK ? (
-            <div className={`${styles.card} ${styles.break}`}>
-              <h2>Break</h2>
-              Next Station:{" "}
-              {allStations.length > stationIndex + 1 &&
-                allStations[stationIndex + 1].id}{" "}
-              ({stationIndex + 1}
-              )
-              <br />
-              <br />
-              {formatSecondsToMinutesAndSeconds(seconds)}
-              <br />
-              <br />
-              <button
-                onClick={clickNextStation}
-                className={seconds <= 0 ? styles.nextButtonTimeover : ""}
-              >
-                Start Next Station
-              </button>
-            </div>
+            <BreakStationCard
+              seconds={seconds}
+              stationIndex={stationIndex}
+              clickNextStation={clickNextStation}
+            />
           ) : (
-            <div className={styles.card}>
-              <h2>
-                Station {station.id} ({stationIndex}):
-              </h2>
-              <p>{station.description}</p>
-              {formatSecondsToMinutesAndSeconds(seconds)}
-              <br />
-              <br />
-              <button
-                onClick={clickNextStation}
-                className={seconds <= 0 ? styles.nextButtonTimeover : ""}
-              >
-                Start {seconds > 0 ? "Break" : "Next Station"}
-              </button>
-            </div>
+            <MainStationCard
+              station={station}
+              stationIndex={stationIndex}
+              seconds={seconds}
+              clickNextStation={clickNextStation}
+            />
           )
         ) : (
-          <div className={styles.card}>
-            <h2>Finished</h2>
-            <label>endDruck:</label>
-            <div className={styles.endDruckContainer}>
-              <input
-                type={"number"}
-                value={endDruck === undefined ? "" : endDruck}
-                onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
-                placeholder="endDruck"
-              />
-              <br />
-              <button
-                onClick={() => {
-                  person.druck.end = endDruck;
-                  setRefresh(!refresh);
-                }}
-                disabled={
-                  endDruck === undefined || endDruck == person.druck.end
-                }
-              >
-                Submit
-              </button>
-            </div>
-          </div>
+          <FinishedStationCard setEndDruckCallback={setEndDruckCallback} />
         ))}
     </div>
   );
