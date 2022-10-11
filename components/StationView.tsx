@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Person } from "../models/Person";
 import styles from "../styles/StationView.module.css";
 import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
 import ScoreBoard, { StationTime } from "./ScoreBoard";
@@ -48,11 +49,13 @@ enum StationStatus {
 }
 
 export type StationViewProps = {
+  person: Person;
   autoSkipOnTimerEnd: boolean;
   resetTestCallback: () => void;
 };
 
 export default function StationView({
+  person,
   autoSkipOnTimerEnd,
   resetTestCallback: resetTestCallback,
 }: StationViewProps) {
@@ -119,6 +122,7 @@ export default function StationView({
 
   return (
     <>
+      <h2>{person.name}</h2>
       <ScoreBoard stationTimes={stationTimes} />
 
       {!finished ? (
