@@ -6,8 +6,8 @@
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
+  width: 300px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
 }
 
 .break {
@@ -16,4 +16,9 @@
 
 .resetTestButton{
   width: 100px;
+}
+
+.endDruckContainer {
+  display: flex;
+  margin-bottom: 1rem;
 }

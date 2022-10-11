@@ -1,3 +1,4 @@
+import { Person } from "../models/Person";
 import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
 import { allStations, Station } from "./StationView";
 
@@ -7,12 +8,17 @@ export type StationTime = {
 };
 
 export type ScoreBoardProps = {
+  person: Person;
   stationTimes: StationTime[];
 };
 
-export default function ScoreBoard({ stationTimes }: ScoreBoardProps) {
+export default function ScoreBoard({ person, stationTimes }: ScoreBoardProps) {
   return (
     <>
+      <h2>{person.name}</h2>
+      startDruck: {person.druck.start}
+      <br />
+      endDruck: {person.druck.end}
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (

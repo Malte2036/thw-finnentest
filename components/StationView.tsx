@@ -72,6 +72,8 @@ export default function StationView({
 
   const [finished, setFinished] = useState<boolean>(false);
 
+  const [endDruck, setEndDruck] = useState<number | undefined>(undefined);
+
   function updateStationTimes() {
     setStationTimes((state) => [
       ...state.filter((s) => s.station.id !== station.id),
@@ -122,8 +124,7 @@ export default function StationView({
 
   return (
     <>
-      <h2>{person.name}</h2>
-      <ScoreBoard stationTimes={stationTimes} />
+      <ScoreBoard person={person} stationTimes={stationTimes} />
 
       {!finished ? (
         stationStatus == StationStatus.BREAK ? (
@@ -156,15 +157,31 @@ export default function StationView({
           </div>
         )
       ) : (
-        <>
+        <div className={styles.card}>
           <h2>Finished</h2>
-          <button
+          <label>endDruck:</label>
+          <div className={styles.endDruckContainer}>
+            <input
+              type={"number"}
+              value={endDruck}
+              onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
+              placeholder="endDruck"
+            />
+            <br />
+            <button
+              onClick={() => (person.druck.end = endDruck)}
+              disabled={endDruck === undefined || endDruck == person.druck.end}
+            >
+              Submit
+            </button>
+          </div>
+          {/*<button
             onClick={resetTestCallback}
             className={styles.resetTestButton}
           >
             Reset Test
-          </button>
-        </>
+          </button>*/}
+        </div>
       )}
     </>
   );
