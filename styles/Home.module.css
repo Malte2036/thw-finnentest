@@ -38,3 +38,17 @@
   margin-top: 5rem;
   margin-bottom: 1rem;
 }
+
+.stationViewsContainer{
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .stationViewsContainer { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .stationViewsContainer { grid-template-columns: repeat(3, 1fr); }
+}

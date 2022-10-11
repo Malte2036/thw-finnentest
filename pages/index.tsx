@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Finnentest</h1>
 
         {started ? (
-          <>
+          <div className={styles.stationViewsContainer}>
             {persons.map((p) => (
               <StationView
                 key={p.name}
@@ -38,7 +38,7 @@ const Home: NextPage = () => {
             {/*<button onClick={resetTest} className={styles.resetTestButton}>
               Reset Test
             </button>*/}
-          </>
+          </div>
         ) : (
           <>
             <CreatePersonForm

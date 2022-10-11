@@ -124,7 +124,7 @@ export default function StationView({
   }
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <ScoreBoard person={person} stationTimes={stationTimes} />
 
       {!finished ? (
@@ -178,6 +178,6 @@ export default function StationView({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
