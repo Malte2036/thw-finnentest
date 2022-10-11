@@ -29,6 +29,7 @@ const Home: NextPage = () => {
         {started ? (
           persons.map((p) => (
             <StationView
+              key={p.name}
               person={p}
               autoSkipOnTimerEnd={autoSkipOnTimerEnd}
               resetTestCallback={resetTest}
@@ -45,10 +46,10 @@ const Home: NextPage = () => {
               }
             />
             {persons.map((p) => (
-              <>
+              <div key={p.name}>
                 {p.name}
                 <br />
-              </>
+              </div>
             ))}
             <div
               onClick={() => setAutoSkipOnTimerEnd(!autoSkipOnTimerEnd)}
