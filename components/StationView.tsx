@@ -51,13 +51,11 @@ enum StationStatus {
 export type StationViewProps = {
   person: Person;
   autoSkipOnTimerEnd: boolean;
-  resetTestCallback: () => void;
 };
 
 export default function StationView({
   person,
   autoSkipOnTimerEnd,
-  resetTestCallback: resetTestCallback,
 }: StationViewProps) {
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
@@ -106,7 +104,7 @@ export default function StationView({
       setStationIndex((state) => state + 1);
       return;
     }
-    const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
+    const interval = setInterval(() => setSeconds((state) => state - 1), 100);
     return () => clearInterval(interval);
   }, [seconds]);
 
@@ -175,12 +173,6 @@ export default function StationView({
               Submit
             </button>
           </div>
-          {/*<button
-            onClick={resetTestCallback}
-            className={styles.resetTestButton}
-          >
-            Reset Test
-          </button>*/}
         </div>
       )}
     </>

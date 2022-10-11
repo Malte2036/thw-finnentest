@@ -27,14 +27,18 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Finnentest</h1>
 
         {started ? (
-          persons.map((p) => (
-            <StationView
-              key={p.name}
-              person={p}
-              autoSkipOnTimerEnd={autoSkipOnTimerEnd}
-              resetTestCallback={resetTest}
-            />
-          ))
+          <>
+            {persons.map((p) => (
+              <StationView
+                key={p.name}
+                person={p}
+                autoSkipOnTimerEnd={autoSkipOnTimerEnd}
+              />
+            ))}
+            {/*<button onClick={resetTest} className={styles.resetTestButton}>
+              Reset Test
+            </button>*/}
+          </>
         ) : (
           <>
             <CreatePersonForm
