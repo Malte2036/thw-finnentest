@@ -127,57 +127,60 @@ export default function StationView({
     <div className={styles.mainContainer}>
       <ScoreBoard person={person} stationTimes={stationTimes} />
 
-      {!finished ? (
-        stationStatus == StationStatus.BREAK ? (
-          <div className={`${styles.card} ${styles.break}`}>
-            <h2>Break</h2>
-            Next Station:{" "}
-            {allStations.length > stationIndex + 1 &&
-              allStations[stationIndex + 1].id}{" "}
-            ({stationIndex + 1}
-            )
-            <br />
-            <br />
-            {formatSecondsToMinutesAndSeconds(seconds)}
-            <br />
-            <br />
-            <button onClick={clickNextStation}>Start Next Station</button>
-          </div>
+      {person.druck.end === undefined &&
+        (!finished ? (
+          stationStatus == StationStatus.BREAK ? (
+            <div className={`${styles.card} ${styles.break}`}>
+              <h2>Break</h2>
+              Next Station:{" "}
+              {allStations.length > stationIndex + 1 &&
+                allStations[stationIndex + 1].id}{" "}
+              ({stationIndex + 1}
+              )
+              <br />
+              <br />
+              {formatSecondsToMinutesAndSeconds(seconds)}
+              <br />
+              <br />
+              <button onClick={clickNextStation}>Start Next Station</button>
+            </div>
+          ) : (
+            <div className={styles.card}>
+              <h2>
+                Station {station.id} ({stationIndex}):
+              </h2>
+              <p>{station.description}</p>
+              {formatSecondsToMinutesAndSeconds(seconds)}
+              <br />
+              <br />
+              <button onClick={clickNextStation}>
+                Start {seconds > 0 ? "Break" : "Next Station"}
+              </button>
+            </div>
+          )
         ) : (
           <div className={styles.card}>
-            <h2>
-              Station {station.id} ({stationIndex}):
-            </h2>
-            <p>{station.description}</p>
-            {formatSecondsToMinutesAndSeconds(seconds)}
-            <br />
-            <br />
-            <button onClick={clickNextStation}>
-              Start {seconds > 0 ? "Break" : "Next Station"}
-            </button>
+            <h2>Finished</h2>
+            <label>endDruck:</label>
+            <div className={styles.endDruckContainer}>
+              <input
+                type={"number"}
+                value={endDruck}
+                onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
+                placeholder="endDruck"
+              />
+              <br />
+              <button
+                onClick={() => (person.druck.end = endDruck)}
+                disabled={
+                  endDruck === undefined || endDruck == person.druck.end
+                }
+              >
+                Submit
+              </button>
+            </div>
           </div>
-        )
-      ) : (
-        <div className={styles.card}>
-          <h2>Finished</h2>
-          <label>endDruck:</label>
-          <div className={styles.endDruckContainer}>
-            <input
-              type={"number"}
-              value={endDruck}
-              onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
-              placeholder="endDruck"
-            />
-            <br />
-            <button
-              onClick={() => (person.druck.end = endDruck)}
-              disabled={endDruck === undefined || endDruck == person.druck.end}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
+        ))}
     </div>
   );
 }
