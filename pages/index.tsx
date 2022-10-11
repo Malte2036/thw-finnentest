@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             />
             {persons.map((p) => (
               <div key={p.name}>
-                {p.name}, start druck: {p.druck.start}
+                {p.name}, startDruck: {p.druck.start}
                 <br />
               </div>
             ))}

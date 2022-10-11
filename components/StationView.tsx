@@ -90,6 +90,9 @@ export default function StationView({
   useEffect(() => {
     if (stationStatus === StationStatus.BREAK) {
       updateStationTimes();
+      if (stationIndex + 1 >= allStations.length) {
+        setFinished(true);
+      }
     }
   }, [stationStatus]);
 
