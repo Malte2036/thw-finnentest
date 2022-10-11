@@ -17,10 +17,10 @@ export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
         placeholder="Name"
       />
       <input
-        value={startDruck}
+        value={startDruck === undefined ? "" : startDruck}
         type="number"
         onChange={(e) => setStartDruck(Number.parseFloat(e.target.value))}
-        placeholder="Start Druck"
+        placeholder="startDruck"
       />
       <button
         onClick={() => {
