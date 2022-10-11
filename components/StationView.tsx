@@ -36,7 +36,7 @@ export default function StationView({
 
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  const startTimestamp = Date.now();
+  const [startTimestamp] = useState<number>(Date.now());
   const [endTimestamp, setEndTimestamp] = useState<number | undefined>();
 
   function updateStationTimes() {
@@ -86,12 +86,6 @@ export default function StationView({
     return () => clearInterval(interval);
   }, [seconds]);
 
-  useEffect(() => {
-    if (finished) {
-      setEndTimestamp(Date.now());
-    }
-  }, [finished]);
-
   function clickNextStation() {
     if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
       setStationStatus(StationStatus.BREAK);
@@ -106,7 +100,7 @@ export default function StationView({
 
   function setEndDruckCallback(druck: number) {
     person.druck.end = druck;
-    setRefresh(!refresh);
+    setEndTimestamp(Date.now());
   }
 
   return (
@@ -115,7 +109,7 @@ export default function StationView({
         person={person}
         sumTimeSeconds={
           endTimestamp !== undefined
-            ? (endTimestamp - startTimestamp) / 10
+            ? (endTimestamp - startTimestamp) / 1000
             : undefined
         }
         stationTimes={stationTimes}
