@@ -29,7 +29,6 @@ const Home: NextPage = () => {
         {started ? (
           persons.map((p) => (
             <StationView
-              key={p.name}
               person={p}
               autoSkipOnTimerEnd={autoSkipOnTimerEnd}
               resetTestCallback={resetTest}
@@ -46,7 +45,7 @@ const Home: NextPage = () => {
               <div key={p.name}>
                 {p.name}, start druck: {p.druck.start}
                 <br />
-              </div>
+              </>
             ))}
             <div
               onClick={() => setAutoSkipOnTimerEnd(!autoSkipOnTimerEnd)}

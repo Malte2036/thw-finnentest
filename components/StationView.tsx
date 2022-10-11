@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Person } from "../models/Person";
 import styles from "../styles/StationView.module.css";
 import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
@@ -72,12 +72,12 @@ export default function StationView({
 
   const [finished, setFinished] = useState<boolean>(false);
 
-  const updateStationTimes = useCallback(() => {
+  function updateStationTimes() {
     setStationTimes((state) => [
       ...state.filter((s) => s.station.id !== station.id),
       { station: station, time: station.time - seconds },
     ]);
-  }, [seconds, station]);
+  }
 
   useEffect(() => {
     if (stationIndex >= allStations.length) {
@@ -91,7 +91,7 @@ export default function StationView({
     if (stationStatus === StationStatus.BREAK) {
       updateStationTimes();
     }
-  }, [stationStatus, updateStationTimes]);
+  }, [stationStatus]);
 
   useEffect(() => {
     setSeconds(station.time);
@@ -106,7 +106,7 @@ export default function StationView({
     }
     const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
     return () => clearInterval(interval);
-  }, [seconds, autoSkipOnTimerEnd, updateStationTimes]);
+  }, [seconds]);
 
   function clickNextStation() {
     if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
