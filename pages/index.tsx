@@ -38,16 +38,13 @@ const Home: NextPage = () => {
         ) : (
           <>
             <CreatePersonForm
-              addPerson={(name: string) =>
-                setPersons((state) => [
-                  ...state,
-                  { name, druck: { start: undefined, end: undefined } },
-                ])
+              addPerson={(person: Person) =>
+                setPersons((state) => [...state, person])
               }
             />
             {persons.map((p) => (
               <div key={p.name}>
-                {p.name}
+                {p.name}, start druck: {p.druck.start}
                 <br />
               </div>
             ))}

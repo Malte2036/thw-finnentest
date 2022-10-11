@@ -1,7 +1,7 @@
 export type Person = {
   name: string;
   druck: {
-    start: number | undefined;
+    start: number;
     end: number | undefined;
   };
 };
