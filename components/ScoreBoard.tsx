@@ -29,6 +29,13 @@ export default function ScoreBoard({
       {person.druck.end !== undefined && sumTimeSeconds !== undefined
         ? calcLPerMin(person, sumTimeSeconds!)
         : ""}
+      <br />
+      sumTime:{" "}
+      {sumTimeSeconds !== undefined
+        ? formatSecondsToMinutesAndSeconds(sumTimeSeconds)
+        : ""}
+      <br />
+      <br />
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
