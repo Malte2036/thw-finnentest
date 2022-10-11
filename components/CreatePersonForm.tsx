@@ -23,12 +23,14 @@ export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
         placeholder="Start Druck"
       />
       <button
-        onClick={() =>
+        onClick={() => {
           addPerson({
             name,
             druck: { start: startDruck!, end: undefined },
-          })
-        }
+          });
+          setName("");
+          setStartDruck(undefined);
+        }}
         disabled={name.length == 0 || startDruck === undefined}
         className={styles.addButton}
       >
