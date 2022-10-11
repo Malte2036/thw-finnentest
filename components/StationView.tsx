@@ -142,7 +142,12 @@ export default function StationView({
               {formatSecondsToMinutesAndSeconds(seconds)}
               <br />
               <br />
-              <button onClick={clickNextStation}>Start Next Station</button>
+              <button
+                onClick={clickNextStation}
+                className={seconds <= 0 ? styles.nextButtonTimeover : ""}
+              >
+                Start Next Station
+              </button>
             </div>
           ) : (
             <div className={styles.card}>
@@ -153,7 +158,10 @@ export default function StationView({
               {formatSecondsToMinutesAndSeconds(seconds)}
               <br />
               <br />
-              <button onClick={clickNextStation}>
+              <button
+                onClick={clickNextStation}
+                className={seconds <= 0 ? styles.nextButtonTimeover : ""}
+              >
                 Start {seconds > 0 ? "Break" : "Next Station"}
               </button>
             </div>

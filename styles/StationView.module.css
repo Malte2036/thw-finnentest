@@ -18,6 +18,10 @@
   border-color: red;
 }
 
+.nextButtonTimeover{
+  color: red;
+}
+
 .resetTestButton{
   width: 100px;
 }
