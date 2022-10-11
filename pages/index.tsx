@@ -54,7 +54,7 @@ const Home: NextPage = () => {
               onClick={() => setAutoSkipOnTimerEnd(!autoSkipOnTimerEnd)}
               className={styles.checkBoxContainer}
             >
-              <input type="checkbox" checked={autoSkipOnTimerEnd} />{" "}
+              <input type="checkbox" defaultChecked={autoSkipOnTimerEnd} />{" "}
               autoSkipOnTimerEnd
             </div>
             <button
