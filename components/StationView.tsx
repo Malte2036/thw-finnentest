@@ -177,7 +177,7 @@ export default function StationView({
             <div className={styles.endDruckContainer}>
               <input
                 type={"number"}
-                value={endDruck}
+                value={endDruck === undefined ? "" : endDruck}
                 onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
                 placeholder="endDruck"
               />
