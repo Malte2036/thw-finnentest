@@ -71,11 +71,19 @@ export default function StationView({
   const [finished, setFinished] = useState<boolean>(false);
 
   const [endDruck, setEndDruck] = useState<number | undefined>(undefined);
+  const [refresh, setRefresh] = useState<boolean>(false);
+
+  const startTimestamp = Date.now();
+  const [endTimestamp, setEndTimestamp] = useState<number | undefined>();
 
   function updateStationTimes() {
     setStationTimes((state) => [
       ...state.filter((s) => s.station.id !== station.id),
-      { station: station, time: station.time - seconds },
+      {
+        station: station,
+        time: station.time - seconds,
+        defaultTime: station.time,
+      },
     ]);
   }
 
@@ -115,6 +123,12 @@ export default function StationView({
     return () => clearInterval(interval);
   }, [seconds]);
 
+  useEffect(() => {
+    if (finished) {
+      setEndTimestamp(Date.now());
+    }
+  }, [finished]);
+
   function clickNextStation() {
     if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
       setStationStatus(StationStatus.BREAK);
@@ -129,7 +143,15 @@ export default function StationView({
 
   return (
     <div className={styles.mainContainer}>
-      <ScoreBoard person={person} stationTimes={stationTimes} />
+      <ScoreBoard
+        person={person}
+        sumTime={
+          endTimestamp !== undefined
+            ? (endTimestamp - startTimestamp) / 10
+            : undefined
+        }
+        stationTimes={stationTimes}
+      />
 
       {person.druck.end === undefined &&
         (!finished ? (
@@ -183,7 +205,10 @@ export default function StationView({
               />
               <br />
               <button
-                onClick={() => (person.druck.end = endDruck)}
+                onClick={() => {
+                  person.druck.end = endDruck;
+                  setRefresh(!refresh);
+                }}
                 disabled={
                   endDruck === undefined || endDruck == person.druck.end
                 }

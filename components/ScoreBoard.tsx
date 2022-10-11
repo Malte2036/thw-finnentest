@@ -10,24 +10,21 @@ export type StationTime = {
 export type ScoreBoardProps = {
   person: Person;
   stationTimes: StationTime[];
+  sumTime: number | undefined;
 };
-function sumStationTimes(stationTimes: StationTime[]): number {
-  return stationTimes
-    .filter((s) => s.time !== undefined)
-    .map((s) => s.time as number)
-    .reduce((accumulator, current) => {
-      return accumulator + current;
-    }, 0);
-}
 
-function calcLPerMin(person: Person, stationTimes: StationTime[]) {
+function calcLPerMin(person: Person, sumTime: number) {
   const druckDiff = person.druck.start - person.druck.end!;
-  const minutes = sumStationTimes(stationTimes) / 60;
+  const minutes = sumTime / 60;
 
   return ((6 * druckDiff) / 1.1 / minutes).toFixed(2);
 }
 
-export default function ScoreBoard({ person, stationTimes }: ScoreBoardProps) {
+export default function ScoreBoard({
+  person,
+  sumTime,
+  stationTimes,
+}: ScoreBoardProps) {
   return (
     <>
       <h2>{person.name}</h2>
@@ -35,11 +32,10 @@ export default function ScoreBoard({ person, stationTimes }: ScoreBoardProps) {
       <br />
       endDruck: {person.druck.end}
       <br />
-      {person.druck.end !== undefined ? (
-        <>l/min: {calcLPerMin(person, stationTimes)}</>
-      ) : (
-        <></>
-      )}
+      l/min:{" "}
+      {person.druck.end !== undefined && sumTime !== undefined
+        ? calcLPerMin(person, sumTime!)
+        : ""}
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
