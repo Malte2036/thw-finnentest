@@ -11,6 +11,21 @@ export type ScoreBoardProps = {
   person: Person;
   stationTimes: StationTime[];
 };
+function sumStationTimes(stationTimes: StationTime[]): number {
+  return stationTimes
+    .filter((s) => s.time !== undefined)
+    .map((s) => s.time as number)
+    .reduce((accumulator, current) => {
+      return accumulator + current;
+    }, 0);
+}
+
+function calcLPerMin(person: Person, stationTimes: StationTime[]) {
+  const druckDiff = person.druck.start - person.druck.end!;
+  const minutes = sumStationTimes(stationTimes) / 60;
+
+  return ((6 * druckDiff) / 1.1 / minutes).toFixed(2);
+}
 
 export default function ScoreBoard({ person, stationTimes }: ScoreBoardProps) {
   return (
@@ -19,6 +34,12 @@ export default function ScoreBoard({ person, stationTimes }: ScoreBoardProps) {
       startDruck: {person.druck.start}
       <br />
       endDruck: {person.druck.end}
+      <br />
+      {person.druck.end !== undefined ? (
+        <>l/min: {calcLPerMin(person, stationTimes)}</>
+      ) : (
+        <></>
+      )}
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
