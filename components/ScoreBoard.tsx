@@ -1,6 +1,6 @@
 import { Person } from "../models/Person";
 import { allStations, Station } from "../models/Station";
-import { formatSecondsToMinutesAndSeconds } from "../utils/utils";
+import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
 
 export type StationTime = {
   station: Station;
@@ -10,19 +10,12 @@ export type StationTime = {
 export type ScoreBoardProps = {
   person: Person;
   stationTimes: StationTime[];
-  sumTime: number | undefined;
+  sumTimeSeconds: number | undefined;
 };
-
-function calcLPerMin(person: Person, sumTime: number) {
-  const druckDiff = person.druck.start - person.druck.end!;
-  const minutes = sumTime / 60;
-
-  return ((6 * druckDiff) / 1.1 / minutes).toFixed(2);
-}
 
 export default function ScoreBoard({
   person,
-  sumTime,
+  sumTimeSeconds,
   stationTimes,
 }: ScoreBoardProps) {
   return (
@@ -33,8 +26,8 @@ export default function ScoreBoard({
       endDruck: {person.druck.end}
       <br />
       l/min:{" "}
-      {person.druck.end !== undefined && sumTime !== undefined
-        ? calcLPerMin(person, sumTime!)
+      {person.druck.end !== undefined && sumTimeSeconds !== undefined
+        ? calcLPerMin(person, sumTimeSeconds!)
         : ""}
       {stationTimes
         .filter((s) => s.time !== undefined)

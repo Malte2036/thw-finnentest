@@ -113,7 +113,7 @@ export default function StationView({
     <div className={styles.mainContainer}>
       <ScoreBoard
         person={person}
-        sumTime={
+        sumTimeSeconds={
           endTimestamp !== undefined
             ? (endTimestamp - startTimestamp) / 10
             : undefined
