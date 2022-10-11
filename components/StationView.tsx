@@ -107,7 +107,11 @@ export default function StationView({
       setStationIndex((state) => state + 1);
       return;
     }
-    const interval = setInterval(() => setSeconds((state) => state - 1), 1000);
+    if (finished) {
+      return;
+    }
+
+    const interval = setInterval(() => setSeconds((state) => state - 0.1), 100);
     return () => clearInterval(interval);
   }, [seconds]);
 

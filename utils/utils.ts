@@ -11,5 +11,5 @@ export function formatSecondsToMinutesAndSeconds(totalSeconds: number) {
   const seconds = totalSeconds % 60;
   return `${negativ ? "-" : ""}${padTo2Digits(minutes)}min ${padTo2Digits(
     seconds
-  )}s`;
+  )},${((totalSeconds % 1) * 10).toFixed(0)}s`;
 }
