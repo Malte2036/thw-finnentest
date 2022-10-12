@@ -24,7 +24,7 @@ export default function MainStationCard({
   return (
     <div className={styles.card}>
       <h2>
-        Station {station.id} ({stationIndex}):
+        Station {station.name} ({stationIndex}):
       </h2>
       <p>{station.description}</p>
       {formatSecondsToMinutesAndSeconds(seconds)}

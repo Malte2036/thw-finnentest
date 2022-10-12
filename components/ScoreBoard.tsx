@@ -41,12 +41,15 @@ export default function ScoreBoard({
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
-          <div key={s.station.id} className={s.success ? "" : styles.noSuccess}>
-            {s.station.id} (
+          <div
+            key={s.station.name}
+            className={s.success ? "" : styles.noSuccess}
+          >
+            {s.station.name} (
             {
               allStations
                 .map((allS, index) => ({ index, station: allS }))
-                .find((allS) => allS.station.id === s.station.id)?.index
+                .find((allS) => allS.station.name === s.station.name)?.index
             }
             ) :{" "}
             {s.time !== undefined && formatSecondsToMinutesAndSeconds(s.time)}

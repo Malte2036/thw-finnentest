@@ -17,7 +17,7 @@ export default function BreakStationCard({
       <h2>Break</h2>
       Next Station:{" "}
       {allStations.length > stationIndex + 1 &&
-        allStations[stationIndex + 1].id}{" "}
+        allStations[stationIndex + 1].name}{" "}
       ({stationIndex + 1}
       )
       <br />

@@ -40,7 +40,7 @@ export default function StationView({
 
   function updateStationTimes() {
     setStationTimes((state) => [
-      ...state.filter((s) => s.station.id !== station.id),
+      ...state.filter((s) => s.station.name !== station.name),
       {
         station: station,
         time: station.time - seconds,
