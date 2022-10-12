@@ -1,3 +1,4 @@
+import styles from "../styles/ScoreBoard.module.css";
 import { Person } from "../models/Person";
 import { allStations, Station } from "../models/Station";
 import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
@@ -5,6 +6,7 @@ import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
 export type StationTime = {
   station: Station;
   time: number | undefined;
+  success: boolean | undefined;
 };
 
 export type ScoreBoardProps = {
@@ -39,7 +41,7 @@ export default function ScoreBoard({
       {stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
-          <div key={s.station.id}>
+          <div key={s.station.id} className={s.success ? "" : styles.noSuccess}>
             {s.station.id} (
             {
               allStations

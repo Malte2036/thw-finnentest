@@ -29,12 +29,11 @@ export default function StationView({
   const [stationStatus, setStationStatus] = useState<StationStatus>(
     StationStatus.NO_BREAK
   );
+  const [stationSuccess, setStationSuccess] = useState<boolean>(true);
 
   const [stationTimes, setStationTimes] = useState<StationTime[]>([]);
 
   const [finished, setFinished] = useState<boolean>(false);
-
-  const [refresh, setRefresh] = useState<boolean>(false);
 
   const [startTimestamp] = useState<number>(Date.now());
   const [endTimestamp, setEndTimestamp] = useState<number | undefined>();
@@ -46,6 +45,7 @@ export default function StationView({
         station: station,
         time: station.time - seconds,
         defaultTime: station.time,
+        success: stationSuccess,
       },
     ]);
   }
@@ -69,6 +69,7 @@ export default function StationView({
 
   useEffect(() => {
     setSeconds(station.time);
+    setStationSuccess(true);
     setStationStatus(StationStatus.NO_BREAK);
   }, [station]);
 
@@ -127,6 +128,8 @@ export default function StationView({
             <MainStationCard
               station={station}
               stationIndex={stationIndex}
+              stationSuccess={stationSuccess}
+              setStationSuccess={setStationSuccess}
               seconds={seconds}
               clickNextStation={clickNextStation}
             />

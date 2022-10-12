@@ -16,6 +16,10 @@ button {
   height: 2.5rem;
 }
 
+input {
+  height: 2rem;
+}
+
 * {
   box-sizing: border-box;
 }

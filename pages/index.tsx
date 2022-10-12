@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
+import Checkbox from "../components/Checkbox";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView from "../components/StationView";
 import { Person } from "../models/Person";
@@ -52,13 +53,11 @@ const Home: NextPage = () => {
                 <br />
               </div>
             ))}
-            <div
-              onClick={() => setAutoSkipOnTimerEnd(!autoSkipOnTimerEnd)}
-              className={styles.checkBoxContainer}
-            >
-              <input type="checkbox" defaultChecked={autoSkipOnTimerEnd} />{" "}
-              autoSkipOnTimerEnd
-            </div>
+            <Checkbox
+              checked={autoSkipOnTimerEnd}
+              setChecked={setAutoSkipOnTimerEnd}
+              label="autoSkipOnTimerEnd"
+            />
             <button
               onClick={() => setStarted(true)}
               disabled={persons.length === 0}
