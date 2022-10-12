@@ -5,7 +5,7 @@ import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
 export type BreakStationCard = {
   seconds: number;
   stationIndex: number;
-  clickNextStation: () => void;
+  clickNextStation: (passed?: boolean) => void;
 };
 export default function BreakStationCard({
   seconds,
@@ -26,8 +26,8 @@ export default function BreakStationCard({
       <br />
       <br />
       <button
-        onClick={clickNextStation}
-        className={seconds <= 0 ? styles.nextButtonTimeover : ""}
+        onClick={() => clickNextStation()}
+        className={seconds <= 0 ? styles.timeover : ""}
       >
         Start Next Station
       </button>

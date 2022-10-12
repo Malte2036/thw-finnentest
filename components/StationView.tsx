@@ -29,7 +29,6 @@ export default function StationView({
   const [stationStatus, setStationStatus] = useState<StationStatus>(
     StationStatus.NO_BREAK
   );
-  const [stationSuccess, setStationSuccess] = useState<boolean>(true);
 
   const [stationTimes, setStationTimes] = useState<StationTime[]>([]);
 
@@ -38,14 +37,14 @@ export default function StationView({
   const [startTimestamp] = useState<number>(Date.now());
   const [endTimestamp, setEndTimestamp] = useState<number | undefined>();
 
-  function updateStationTimes() {
+  function updateStationTimes(passed: boolean) {
     setStationTimes((state) => [
       ...state.filter((s) => s.station.name !== station.name),
       {
         station: station,
         time: station.time - seconds,
         defaultTime: station.time,
-        success: stationSuccess,
+        passed: passed,
       },
     ]);
   }
@@ -60,7 +59,7 @@ export default function StationView({
 
   useEffect(() => {
     if (stationStatus === StationStatus.BREAK) {
-      updateStationTimes();
+      //updateStationTimes();
       if (stationIndex + 1 >= allStations.length) {
         setFinished(true);
       }
@@ -69,13 +68,12 @@ export default function StationView({
 
   useEffect(() => {
     setSeconds(station.time);
-    setStationSuccess(true);
     setStationStatus(StationStatus.NO_BREAK);
   }, [station]);
 
   useEffect(() => {
     if (seconds <= 0 && autoSkipOnTimerEnd) {
-      updateStationTimes();
+      //updateStationTimes();
       setStationIndex((state) => state + 1);
       return;
     }
@@ -87,12 +85,18 @@ export default function StationView({
     return () => clearInterval(interval);
   }, [seconds]);
 
-  function clickNextStation() {
+  function clickNextStation(passed?: boolean) {
     if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
+      if (passed === undefined)
+        throw "clickNextStation: passed parameter is missing [a]";
+
+      updateStationTimes(passed);
       setStationStatus(StationStatus.BREAK);
     } else {
       if (stationStatus == StationStatus.NO_BREAK) {
-        updateStationTimes();
+        if (passed === undefined)
+          throw "clickNextStation: passed parameter is missing [b]";
+        updateStationTimes(passed);
       }
       setStationIndex((state) => state + 1);
       setStationStatus(StationStatus.NO_BREAK);
@@ -128,8 +132,6 @@ export default function StationView({
             <MainStationCard
               station={station}
               stationIndex={stationIndex}
-              stationSuccess={stationSuccess}
-              setStationSuccess={setStationSuccess}
               seconds={seconds}
               clickNextStation={clickNextStation}
             />

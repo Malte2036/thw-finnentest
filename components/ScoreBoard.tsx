@@ -6,7 +6,7 @@ import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
 export type StationTime = {
   station: Station;
   time: number | undefined;
-  success: boolean | undefined;
+  passed: boolean | undefined;
 };
 
 export type ScoreBoardProps = {
@@ -43,7 +43,7 @@ export default function ScoreBoard({
         .map((s) => (
           <div
             key={s.station.name}
-            className={s.success ? "" : styles.noSuccess}
+            className={s.passed ? "" : styles.notPassed}
           >
             {s.station.name} (
             {
