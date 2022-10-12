@@ -1,10 +1,9 @@
 .mainContainer {
-
-  width: 300px;
+  max-width: 350px;
 }
 
 .card {
-  margin: 1rem;
+  margin-top: 1rem;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
