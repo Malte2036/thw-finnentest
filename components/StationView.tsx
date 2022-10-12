@@ -6,6 +6,7 @@ import ScoreBoard, { StationTime } from "./ScoreBoard";
 import MainStationCard from "./StationCard/MainStationCard";
 import FinishedStationCard from "./StationCard/FinishedStationCard";
 import { allStations, Station } from "../models/Station";
+import { milisecondsToSeconds } from "../utils/utils";
 
 enum StationStatus {
   BREAK,
@@ -24,7 +25,14 @@ export default function StationView({
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
-  const [seconds, setSeconds] = useState<number>(100);
+  const [endTime, setEndTime] = useState<number>(
+    milisecondsToSeconds(Date.now()) + station.time
+  );
+  const [nowTime, setNowTime] = useState<number>(
+    milisecondsToSeconds(Date.now())
+  );
+
+  const seconds = endTime - nowTime;
 
   const [stationStatus, setStationStatus] = useState<StationStatus>(
     StationStatus.NO_BREAK
@@ -67,7 +75,7 @@ export default function StationView({
   }, [stationStatus]);
 
   useEffect(() => {
-    setSeconds(station.time);
+    setEndTime(milisecondsToSeconds(Date.now()) + station.time);
     setStationStatus(StationStatus.NO_BREAK);
   }, [station]);
 
@@ -81,9 +89,12 @@ export default function StationView({
       return;
     }
 
-    const interval = setInterval(() => setSeconds((state) => state - 0.1), 100);
+    const interval = setInterval(
+      () => setNowTime(milisecondsToSeconds(Date.now())),
+      100
+    );
     return () => clearInterval(interval);
-  }, [seconds]);
+  }, [nowTime]);
 
   function clickNextStation(passed?: boolean) {
     if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {

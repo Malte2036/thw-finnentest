@@ -22,3 +22,7 @@ export function calcLPerMin(person: Person, sumTimeSeconds: number) {
 
   return ((6 * druckDiff) / 1.1 / minutes).toFixed(2);
 }
+
+export function milisecondsToSeconds(mili: number): number {
+  return mili / 1000;
+}
