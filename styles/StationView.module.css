@@ -21,10 +21,6 @@
   color: red;
 }
 
-.resetTestButton{
-  width: 100px;
-}
-
 .endDruckContainer {
   display: flex;
   margin-bottom: 1rem;

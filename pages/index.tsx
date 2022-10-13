@@ -28,18 +28,20 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Finnentest</h1>
 
         {started ? (
-          <div className={styles.stationViewsContainer}>
-            {persons.map((p) => (
-              <StationView
-                key={p.name}
-                person={p}
-                autoSkipOnTimerEnd={autoSkipOnTimerEnd}
-              />
-            ))}
-            {/*<button onClick={resetTest} className={styles.resetTestButton}>
+          <>
+            <div className={styles.stationViewsContainer}>
+              {persons.map((p) => (
+                <StationView
+                  key={p.name}
+                  person={p}
+                  autoSkipOnTimerEnd={autoSkipOnTimerEnd}
+                />
+              ))}
+            </div>
+            <button onClick={resetTest} className={styles.resetTestButton}>
               Reset Test
-            </button>*/}
-          </div>
+            </button>
+          </>
         ) : (
           <>
             <CreatePersonForm

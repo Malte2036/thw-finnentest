@@ -33,6 +33,11 @@
   width: 100px;
 }
 
+.resetTestButton{
+  width: 100px;
+  margin-top: 2rem;
+}
+
 .checkBoxContainer {
   display: inline-block;
   margin-top: 5rem;
