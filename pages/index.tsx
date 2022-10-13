@@ -45,9 +45,10 @@ const Home: NextPage = () => {
         ) : (
           <>
             <CreatePersonForm
-              addPerson={(person: Person) =>
-                setPersons((state) => [...state, person])
-              }
+              addPerson={(person: Person) => {
+                if (!persons.map((p) => p.name).includes(person.name))
+                  setPersons((state) => [...state, person]);
+              }}
             />
             {persons.map((p) => (
               <div key={p.name}>
