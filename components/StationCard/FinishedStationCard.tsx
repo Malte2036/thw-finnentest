@@ -20,12 +20,12 @@ export default function FinishedStationCard({
           onChange={(e) => setEndDruck(Number.parseFloat(e.target.value))}
           placeholder="endDruck"
         />
-        <br />
         <button
           onClick={() => {
             setEndDruckCallback(endDruck ?? 0);
           }}
           disabled={endDruck === undefined}
+          className={styles.submitButton}
         >
           Submit
         </button>
