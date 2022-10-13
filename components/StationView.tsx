@@ -25,14 +25,14 @@ export default function StationView({
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
-  const [endTime, setEndTime] = useState<number>(
+  const [endStationTime, setEndStationTime] = useState<number>(
     milisecondsToSeconds(Date.now()) + station.time
   );
   const [nowTime, setNowTime] = useState<number>(
     milisecondsToSeconds(Date.now())
   );
 
-  const seconds = endTime - nowTime;
+  const seconds = endStationTime - nowTime;
 
   const [stationStatus, setStationStatus] = useState<StationStatus>(
     StationStatus.NO_BREAK
@@ -75,7 +75,7 @@ export default function StationView({
   }, [stationStatus]);
 
   useEffect(() => {
-    setEndTime(milisecondsToSeconds(Date.now()) + station.time);
+    setEndStationTime(milisecondsToSeconds(Date.now()) + station.time);
     setStationStatus(StationStatus.NO_BREAK);
   }, [station]);
 
@@ -85,7 +85,7 @@ export default function StationView({
       setStationIndex((state) => state + 1);
       return;
     }
-    if (finished) {
+    if (finished && person.druck.end !== undefined) {
       return;
     }
 
@@ -124,9 +124,8 @@ export default function StationView({
       <ScoreBoard
         person={person}
         sumTimeSeconds={
-          endTimestamp !== undefined
-            ? (endTimestamp - startTimestamp) / 1000
-            : undefined
+          (endTimestamp ? milisecondsToSeconds(endTimestamp) : nowTime) -
+          milisecondsToSeconds(startTimestamp)
         }
         stationTimes={stationTimes}
       />
