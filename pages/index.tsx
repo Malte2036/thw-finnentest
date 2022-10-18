@@ -9,7 +9,6 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);
-  const [autoSkipOnTimerEnd, setAutoSkipOnTimerEnd] = useState<boolean>(false);
 
   const [persons, setPersons] = useState<Person[]>([]);
 
@@ -31,11 +30,7 @@ const Home: NextPage = () => {
           <>
             <div className={styles.stationViewsContainer}>
               {persons.map((p) => (
-                <StationView
-                  key={p.name}
-                  person={p}
-                  autoSkipOnTimerEnd={autoSkipOnTimerEnd}
-                />
+                <StationView key={p.name} person={p} />
               ))}
             </div>
             <button onClick={resetTest} className={styles.resetTestButton}>
@@ -56,11 +51,6 @@ const Home: NextPage = () => {
                 <br />
               </div>
             ))}
-            <Checkbox
-              checked={autoSkipOnTimerEnd}
-              setChecked={setAutoSkipOnTimerEnd}
-              label="autoSkipOnTimerEnd"
-            />
             <button
               onClick={() => setStarted(true)}
               disabled={persons.length === 0}

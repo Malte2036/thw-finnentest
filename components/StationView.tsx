@@ -15,13 +15,9 @@ enum StationStatus {
 
 export type StationViewProps = {
   person: Person;
-  autoSkipOnTimerEnd: boolean;
 };
 
-export default function StationView({
-  person,
-  autoSkipOnTimerEnd,
-}: StationViewProps) {
+export default function StationView({ person }: StationViewProps) {
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
@@ -80,10 +76,9 @@ export default function StationView({
   }, [station]);
 
   useEffect(() => {
-    if (seconds <= 0 && autoSkipOnTimerEnd) {
+    if (seconds <= 0 && stationStatus === StationStatus.BREAK) {
       //updateStationTimes();
       setStationIndex((state) => state + 1);
-      return;
     }
     if (finished && person.druck.end !== undefined) {
       return;
