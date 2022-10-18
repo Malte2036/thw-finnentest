@@ -45,12 +45,14 @@ const Home: NextPage = () => {
                   setPersons((state) => [...state, person]);
               }}
             />
-            {persons.map((p) => (
-              <div key={p.name}>
-                {p.name}, startDruck: {p.druck.start}
-                <br />
-              </div>
-            ))}
+            <div className={styles.persons}>
+              {persons.map((p) => (
+                <div key={p.name}>
+                  {p.name}, startDruck: {p.druck.start}
+                  <br />
+                </div>
+              ))}
+            </div>
             <button
               onClick={() => setStarted(true)}
               disabled={persons.length === 0}
