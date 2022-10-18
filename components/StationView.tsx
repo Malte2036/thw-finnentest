@@ -17,7 +17,15 @@ export type StationViewProps = {
   person: Person;
 };
 
-export default function StationView({ person }: StationViewProps) {
+export default function StationView({
+  person: incommingPerson,
+}: StationViewProps) {
+  const [person, setPerson] = useState<Person>(incommingPerson);
+
+  useEffect(() => {
+    setPerson(incommingPerson);
+  }, [incommingPerson]);
+
   const [station, setStation] = useState<Station>(allStations[0]);
   const [stationIndex, setStationIndex] = useState<number>(0);
 
@@ -65,6 +73,7 @@ export default function StationView({ person }: StationViewProps) {
     if (stationStatus === StationStatus.BREAK) {
       //updateStationTimes();
       if (stationIndex + 1 >= allStations.length) {
+        setEndTimestamp(Date.now());
         setFinished(true);
       }
     }
@@ -80,7 +89,7 @@ export default function StationView({ person }: StationViewProps) {
       //updateStationTimes();
       setStationIndex((state) => state + 1);
     }
-    if (finished && person.druck.end !== undefined) {
+    if (finished) {
       return;
     }
 
@@ -110,8 +119,7 @@ export default function StationView({ person }: StationViewProps) {
   }
 
   function setEndDruckCallback(druck: number) {
-    person.druck.end = druck;
-    setEndTimestamp(Date.now());
+    setPerson((state) => ({ ...state, druck: { ...state.druck, end: druck } }));
   }
 
   return (
