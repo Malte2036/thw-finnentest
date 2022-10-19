@@ -8,7 +8,7 @@ export const allStations: Station[] = [
   {
     name: "Gehen",
     description:
-      "Gehen ohne und mit zwei Kanistern (Zeit: 4min) 100m gehen mit Kanister (je 16,6 kg) und 100m gehen ohne Kanister",
+      "Gehen ohne und mit zwei Kanistern (Zeit: 4min) 100m gehen ohne Kanister und 100m gehen mit Kanister (je 16,6 kg)",
     time: 4 * 60,
   },
   {
