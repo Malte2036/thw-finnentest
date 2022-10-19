@@ -14,6 +14,7 @@ const Home: NextPage = () => {
 
   function resetTest() {
     setStarted(false);
+    setPersons([]);
   }
 
   return (
@@ -33,7 +34,10 @@ const Home: NextPage = () => {
                 <StationView key={p.name} person={p} />
               ))}
             </div>
-            <button onClick={resetTest} className={styles.resetTestButton}>
+            <button
+              onClick={() => window.confirm("Reset Test?") && resetTest()}
+              className={styles.resetTestButton}
+            >
               Reset Test
             </button>
           </>
