@@ -70,13 +70,10 @@ export default function StationView({
   }, [stationIndex]);
 
   useEffect(() => {
-    if (stationStatus === StationStatus.BREAK) {
-      //updateStationTimes();
-      if (stationIndex + 1 >= allStations.length) {
+      if (stationIndex >= allStations.length) {
         setEndTimestamp(Date.now());
         setFinished(true);
       }
-    }
   }, [stationStatus]);
 
   useEffect(() => {
