@@ -25,7 +25,6 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>Finnentest</h1>
-
         {started ? (
           <>
             <div className={styles.stationViewsContainer}>
@@ -65,6 +64,7 @@ const Home: NextPage = () => {
             </button>
           </>
         )}
+        <div className={styles.footer}>©2022 Malte Sehmer</div>
       </main>
     </div>
   );

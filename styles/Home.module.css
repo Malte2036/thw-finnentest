@@ -10,6 +10,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
 }
 
 .title {
@@ -53,4 +58,10 @@
 
 .persons {
   margin-bottom: 1rem;
+}
+
+.footer{
+  color: gray;
+  position:absolute;
+  bottom:1rem;
 }
