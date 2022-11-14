@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView from "../components/StationView";
@@ -69,7 +70,12 @@ const Home: NextPage = () => {
             )}
           </>
         )}
-        <div className={styles.footer}>©2022 Malte Sehmer</div>
+        <div className={styles.footer}>
+          <div className={styles.moreToolsLink}>
+            <Link href={"https://thw.codelam.de"}>Mehr THW Tools</Link>
+          </div>
+          <div>©2022 Malte Sehmer</div>
+        </div>
       </main>
     </div>
   );
