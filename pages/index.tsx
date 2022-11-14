@@ -14,6 +14,9 @@ const Home: NextPage = () => {
 
   const [persons, setPersons] = useState<Person[]>([]);
 
+  const description =
+    "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger.";
+
   function resetTest() {
     setStarted(false);
     setPersons([]);
@@ -24,15 +27,14 @@ const Home: NextPage = () => {
       <Head>
         <title>Finnentest</title>
         <link rel="icon" href="/icon-256x256.png" />
+        <meta name="description" content={description} />
       </Head>
       <main className={styles.main}>
         <Image src={thwLogo} width={125} height={125} alt="THW Logo" />
         <h1 className={styles.title}>Finnentest</h1>
         {!started && (
           <p className={styles.description}>
-            Anwendung zum aufzeichnen und tracken des Finnentests. Der
-            Finnentest ist ein standartisierter Leistungstest für
-            Atemschutzgeräteträger. Mehr zum Finnentest{" "}
+            {description} Mehr zum Finnentest{" "}
             <a
               href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
               target="_blank"
