@@ -28,6 +28,7 @@
 .endDruckContainer {
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -38,7 +39,7 @@
   margin-top: 1rem;
 }
 
-.failedButton {
+.secondaryButton {
   background: var(--secondary);
 }
 

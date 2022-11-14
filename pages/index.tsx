@@ -54,10 +54,13 @@ const Home: NextPage = () => {
               ))}
             </div>
             <button
-              onClick={() => window.confirm("Reset Test?") && resetTest()}
+              onClick={() =>
+                window.confirm("Willst du wirklich den Test zurücksetzen?") &&
+                resetTest()
+              }
               className={styles.resetTestButton}
             >
-              Reset Test
+              Test zurücksetzen
             </button>
           </>
         ) : (
@@ -71,7 +74,7 @@ const Home: NextPage = () => {
             <div className={styles.persons}>
               {persons.map((p) => (
                 <div key={p.name}>
-                  {p.name}, startDruck: {p.druck.start}
+                  {p.name} (Startdruck: {p.druck.start} bar)
                   <br />
                 </div>
               ))}
@@ -82,7 +85,7 @@ const Home: NextPage = () => {
                 disabled={persons.length === 0}
                 className={styles.startTestButton}
               >
-                Start Test
+                Test starten
               </button>
             )}
           </>

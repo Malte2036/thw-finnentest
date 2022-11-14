@@ -9,6 +9,7 @@ export type CreatePersonFormProps = {
 export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
   const [name, setName] = useState<string>("");
   const [startDruck, setStartDruck] = useState<number | undefined>();
+
   return (
     <div className={styles.form}>
       <input
@@ -20,7 +21,7 @@ export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
         value={startDruck === undefined ? "" : startDruck}
         type="number"
         onChange={(e) => setStartDruck(Number.parseFloat(e.target.value))}
-        placeholder="startDruck"
+        placeholder="Startdruck"
       />
       <button
         onClick={() => {
@@ -34,7 +35,7 @@ export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
         disabled={name.length == 0 || startDruck === undefined}
         className={styles.addButton}
       >
-        Add
+        Hinzufügen
       </button>
     </div>
   );

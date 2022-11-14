@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { allStations } from "../../models/Station";
 import styles from "../../styles/StationView.module.css";
 import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
@@ -14,21 +15,23 @@ export default function BreakStationCard({
 }: BreakStationCard) {
   return (
     <div className={`${styles.card} ${styles.break}`}>
-      <h2>Break</h2>
-      Next Station:{" "}
+      <h2>Pause</h2>
+      Nächste Station:{" "}
       {allStations.length > stationIndex + 1 &&
         allStations[stationIndex + 1].name}{" "}
       ({stationIndex + 1}
       )
       <br />
       <br />
-      {formatSecondsToMinutesAndSeconds(seconds)}
+      Verbleibende Zeit: {formatSecondsToMinutesAndSeconds(seconds)}
       <div className={styles.buttonsContainer}>
         <button
           onClick={() => clickNextStation()}
-          className={seconds <= 0 ? styles.timeover : ""}
+          className={classNames(styles.secondaryButton, {
+            [styles.timeover]: seconds <= 0,
+          })}
         >
-          Start Next Station
+          Nächste Station starten
         </button>
       </div>
     </div>

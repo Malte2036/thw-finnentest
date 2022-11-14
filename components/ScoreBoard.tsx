@@ -23,16 +23,17 @@ export default function ScoreBoard({
   return (
     <div>
       <h2>{person.name}</h2>
-      startDruck: {person.druck.start}
+      Startdruck: {person.druck.start} bar
       <br />
-      endDruck: {person.druck.end}
+      Enddruck:{" "}
+      {person.druck.end !== undefined ? `${person.druck.end} bar` : ""}
       <br />
-      l/min:{" "}
+      Gesamtverbrauch:{" "}
       {person.druck.end !== undefined && sumTimeSeconds !== undefined
-        ? calcLPerMin(person, sumTimeSeconds!)
+        ? `${calcLPerMin(person, sumTimeSeconds!)} l/min`
         : ""}
       <br />
-      sumTime:{" "}
+      Gesamtzeit:{" "}
       {sumTimeSeconds !== undefined
         ? formatSecondsToMinutesAndSeconds(sumTimeSeconds)
         : ""}

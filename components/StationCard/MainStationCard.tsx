@@ -19,11 +19,11 @@ export default function MainStationCard({
   return (
     <div className={styles.card}>
       <h2>
-        Station {station.name} ({stationIndex}):
+        Station: {station.name} ({stationIndex}):
       </h2>
       <p>{station.description}</p>
       <div className={seconds <= 0 ? styles.timeover : ""}>
-        {formatSecondsToMinutesAndSeconds(seconds)}
+        Verbleibende Zeit: {formatSecondsToMinutesAndSeconds(seconds)}
       </div>
 
       <div
@@ -32,12 +32,12 @@ export default function MainStationCard({
         })}
       >
         <button
-          className={styles.failedButton}
+          className={styles.secondaryButton}
           onClick={() => clickNextStation(false)}
         >
-          Failed
+          Nicht geschafft
         </button>
-        <button onClick={() => clickNextStation(true)}>Passed</button>
+        <button onClick={() => clickNextStation(true)}>Geschafft</button>
       </div>
     </div>
   );
