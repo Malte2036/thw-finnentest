@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import classNames from "classnames";
 import { Station } from "../../models/Station";
 import styles from "../../styles/StationView.module.css";
 import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
@@ -22,22 +22,21 @@ export default function MainStationCard({
         Station {station.name} ({stationIndex}):
       </h2>
       <p>{station.description}</p>
-      <span className={seconds <= 0 ? styles.timeover : ""}>
-        {formatSecondsToMinutesAndSeconds(seconds)}
-      </span>
-      <br />
-      <br />
-
       <div className={seconds <= 0 ? styles.timeover : ""}>
+        {formatSecondsToMinutesAndSeconds(seconds)}
+      </div>
+
+      <div
+        className={classNames(styles.buttonsContainer, {
+          [styles.timeover]: seconds <= 0,
+        })}
+      >
         <button
-          onClick={() => {
-            clickNextStation(false);
-          }}
+          className={styles.failedButton}
+          onClick={() => clickNextStation(false)}
         >
           Failed
         </button>
-        <br />
-        <br />
         <button onClick={() => clickNextStation(true)}>Passed</button>
       </div>
     </div>

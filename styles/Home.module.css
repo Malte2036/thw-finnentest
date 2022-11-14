@@ -5,12 +5,10 @@
 .main {
   min-height: 100vh;
   padding: 4rem 0;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
+  gap: 1rem;
 
   position: relative;
   margin: 0;
@@ -34,13 +32,14 @@
   font-size: 1.5rem;
 }
 
-.startTestButton{
+.startTestButton {
   width: 100px;
 }
 
-.resetTestButton{
+.resetTestButton {
   width: 100px;
   margin-top: 2rem;
+  background: var(--secondary);
 }
 
 .checkBoxContainer {
@@ -49,7 +48,7 @@
   margin-bottom: 1rem;
 }
 
-.stationViewsContainer{
+.stationViewsContainer {
   display: grid;
   gap: 10px;
   width: 100%;
@@ -60,8 +59,8 @@
   margin-bottom: 1rem;
 }
 
-.footer{
-  color: gray;
-  position:absolute;
-  bottom:1rem;
+.footer {
+  color: var(--secondary);
+  position: absolute;
+  bottom: 1rem;
 }

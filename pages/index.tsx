@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 import { useState } from "react";
-import Checkbox from "../components/Checkbox";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView from "../components/StationView";
 import { Person } from "../models/Person";
+
+import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -24,6 +26,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/icon-256x256.png" />
       </Head>
       <main className={styles.main}>
+        <Image src={thwLogo} width={125} height={125} />
         <h1 className={styles.title}>Finnentest</h1>
         {started ? (
           <>
@@ -55,13 +58,15 @@ const Home: NextPage = () => {
                 </div>
               ))}
             </div>
-            <button
-              onClick={() => setStarted(true)}
-              disabled={persons.length === 0}
-              className={styles.startTestButton}
-            >
-              Start Test
-            </button>
+            {persons.length > 0 && (
+              <button
+                onClick={() => setStarted(true)}
+                disabled={persons.length === 0}
+                className={styles.startTestButton}
+              >
+                Start Test
+              </button>
+            )}
           </>
         )}
         <div className={styles.footer}>©2022 Malte Sehmer</div>

@@ -21,7 +21,7 @@ export default function ScoreBoard({
   stationTimes,
 }: ScoreBoardProps) {
   return (
-    <>
+    <div>
       <h2>{person.name}</h2>
       startDruck: {person.druck.start}
       <br />
@@ -55,6 +55,6 @@ export default function ScoreBoard({
             {s.time !== undefined && formatSecondsToMinutesAndSeconds(s.time)}
           </div>
         ))}
-    </>
+    </div>
   );
 }
