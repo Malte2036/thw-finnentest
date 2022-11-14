@@ -37,7 +37,9 @@ export default function MainStationCard({
         >
           Nicht geschafft
         </button>
-        <button onClick={() => clickNextStation(true)}>Geschafft</button>
+        {seconds > -15 && (
+          <button onClick={() => clickNextStation(true)}>Geschafft</button>
+        )}
       </div>
     </div>
   );
