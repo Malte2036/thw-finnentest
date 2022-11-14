@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/icon-256x256.png" />
       </Head>
       <main className={styles.main}>
-        <Image src={thwLogo} width={125} height={125} />
+        <Image src={thwLogo} width={125} height={125} alt="THW Logo" />
         <h1 className={styles.title}>Finnentest</h1>
         {!started && (
           <p className={styles.description}>
