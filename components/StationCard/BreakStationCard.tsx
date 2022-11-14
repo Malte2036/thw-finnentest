@@ -23,14 +23,14 @@ export default function BreakStationCard({
       <br />
       <br />
       {formatSecondsToMinutesAndSeconds(seconds)}
-      <br />
-      <br />
-      <button
-        onClick={() => clickNextStation()}
-        className={seconds <= 0 ? styles.timeover : ""}
-      >
-        Start Next Station
-      </button>
+      <div className={styles.buttonsContainer}>
+        <button
+          onClick={() => clickNextStation()}
+          className={seconds <= 0 ? styles.timeover : ""}
+        >
+          Start Next Station
+        </button>
+      </div>
     </div>
   );
 }
