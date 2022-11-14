@@ -36,6 +36,7 @@ const Home: NextPage = () => {
             <a
               href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
               target="_blank"
+              rel="noreferrer"
             >
               hier
             </a>
@@ -86,7 +87,7 @@ const Home: NextPage = () => {
         )}
         <div className={styles.footer}>
           <div className={styles.moreToolsLink}>
-            <a href="https://thw.codelam.de" target="_blank">
+            <a href="https://thw.codelam.de" target="_blank" rel="noreferrer">
               Mehr THW Tools
             </a>
           </div>
