@@ -46,7 +46,7 @@ export default function ScoreBoard({
             key={s.station.name}
             className={s.passed ? "" : styles.notPassed}
           >
-            {s.station.name} (
+            {!s.passed && "[nicht bestanden]"} {s.station.name} (
             {
               allStations
                 .map((allS, index) => ({ index, station: allS }))
