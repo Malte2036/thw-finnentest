@@ -26,12 +26,6 @@
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
 .startTestButton {
   width: 100px;
 }
@@ -66,10 +60,4 @@
 
   display: flex;
   gap: 1rem;
-}
-
-.moreToolsLink{
-  color: var(--accent);
-
-  text-decoration: underline;
 }

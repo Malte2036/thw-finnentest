@@ -46,6 +46,7 @@ input {
   border-radius: var(--border-radius);
   border-style: solid;
   border-width: 1px;
+  border-color: var(--accent);
 }
 
 *:focus {
@@ -54,4 +55,11 @@ input {
 
 * {
   box-sizing: border-box;
+}
+
+
+a{
+  color: var(--accent);
+
+  text-decoration: underline;
 }

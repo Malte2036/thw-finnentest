@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView from "../components/StationView";
@@ -29,6 +28,21 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Image src={thwLogo} width={125} height={125} />
         <h1 className={styles.title}>Finnentest</h1>
+        {!started && (
+          <p className={styles.description}>
+            Anwendung zum aufzeichnen und tracken des Finnentests. Der
+            Finnentest ist ein standartisierter Leistungstest für
+            Atemschutzgeräteträger. Mehr zum Finnentest{" "}
+            <a
+              href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
+              target="_blank"
+            >
+              hier
+            </a>
+            .
+          </p>
+        )}
+
         {started ? (
           <>
             <div className={styles.stationViewsContainer}>
@@ -72,7 +86,9 @@ const Home: NextPage = () => {
         )}
         <div className={styles.footer}>
           <div className={styles.moreToolsLink}>
-            <Link href={"https://thw.codelam.de"}>Mehr THW Tools</Link>
+            <a href="https://thw.codelam.de" target="_blank">
+              Mehr THW Tools
+            </a>
           </div>
           <div>©2022 Malte Sehmer</div>
         </div>
