@@ -39,7 +39,7 @@ export default function CreatePersonForm({
         onClick={() => {
           if (!startDruck || startDruck <= 0 || startDruck > 450) {
             setStartDruckError(
-              "Der Startdruck muss zwischen 0 und 450 bar liegen."
+              "Der Startdruck muss zwischen 1 und 450 bar liegen."
             );
             setStartDruck(undefined);
             return;

@@ -62,7 +62,7 @@ export default function ScoreBoard({
               .map((allS, index) => ({ index, station: allS }))
               .find((allS) => allS.station.name === s.station.name)?.index ??
               0) + 1}
-            ) :{" "}
+            ):{" "}
             {s.time !== undefined && formatSecondsToMinutesAndSeconds(s.time)}
           </div>
         ))}

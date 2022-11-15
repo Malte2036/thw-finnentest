@@ -52,8 +52,8 @@ export default function SelectMenuInput({
                 key={item}
                 className={styles.item}
                 onClick={() => {
-                  console.log("click", item);
                   setValue(item);
+                  setOpen(false);
                 }}
               >
                 {item}
