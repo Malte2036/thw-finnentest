@@ -1,8 +1,6 @@
 import { ScoreBoardData } from "../components/ScoreBoard";
 
 export function saveScoreBoardDataToStorage(scoreBoardData: ScoreBoardData) {
-  console.log(scoreBoardData);
-
   let datas = getScoreBoardDatasFromStorage() ?? [];
 
   datas = [

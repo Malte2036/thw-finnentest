@@ -37,7 +37,7 @@ export default function StationView({
   const [endStationTime, setEndStationTime] = useState<number>(
     incommingScoreBoardData.endStationTime !== undefined
       ? incommingScoreBoardData.endStationTime
-      : nowTime + station.time
+      : milisecondsToSeconds(Date.now()) + station.time
   );
 
   const seconds = endStationTime - nowTime;
@@ -126,10 +126,18 @@ export default function StationView({
     }
   }
 
-  function startNextStation() {
-    setStationIndex((state) => state + 1);
+  function isLastStation() {
+    return allStations.length - 1 <= stationIndex;
+  }
 
-    setEndStationTime(milisecondsToSeconds(Date.now()) + station.time);
+  function startNextStation() {
+    if (!isLastStation()) {
+      setEndStationTime(
+        milisecondsToSeconds(Date.now()) + allStations[stationIndex + 1].time
+      );
+    }
+
+    setStationIndex((state) => state + 1);
     setStationStatus(StationStatus.NO_BREAK);
   }
 
