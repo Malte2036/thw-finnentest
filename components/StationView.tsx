@@ -131,7 +131,7 @@ export default function StationView({
   }
 
   useEffect(() => {
-    if (scoreBoardData.stationIndex >= allStations.length) {
+    if (scoreBoardData.stationIndex - 1 >= allStations.length) {
       dispatchScoreboardData({
         type: ScoreBoardDataActionKind.SET_FINISHED,
         payload: true,
@@ -142,7 +142,10 @@ export default function StationView({
   }, [scoreBoardData.stationIndex]);
 
   useEffect(() => {
-    if (!scoreBoardData.finished && isLastStation()) {
+    if (
+      !scoreBoardData.finished &&
+      scoreBoardData.stationIndex - 1 >= allStations.length
+    ) {
       dispatchScoreboardData({
         type: ScoreBoardDataActionKind.SET_END_TIMESTAMP,
         payload: Date.now(),
@@ -200,16 +203,20 @@ export default function StationView({
         type: ScoreBoardDataActionKind.SET_END_STATION_TIME,
         payload: undefined,
       });
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.INCREMENT_STATION_INDEX,
+        payload: undefined,
+      });
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_STATION_STATUS,
+        payload: StationStatus.NO_BREAK,
+      });
+    } else {
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_FINISHED,
+        payload: true,
+      });
     }
-
-    dispatchScoreboardData({
-      type: ScoreBoardDataActionKind.INCREMENT_STATION_INDEX,
-      payload: undefined,
-    });
-    dispatchScoreboardData({
-      type: ScoreBoardDataActionKind.SET_STATION_STATUS,
-      payload: StationStatus.NO_BREAK,
-    });
   }
 
   function setEndDruckCallback(druck: number) {

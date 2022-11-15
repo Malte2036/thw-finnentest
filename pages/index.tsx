@@ -35,8 +35,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     getScoreBoardDatasFromStorage().then((savedScoreBoardProps) => {
-      console.log(savedScoreBoardProps);
-
       if (savedScoreBoardProps.length !== 0) {
         setScoreBoardDatas(savedScoreBoardProps);
         setStarted(true);

@@ -58,11 +58,10 @@ export default function ScoreBoard({
             className={s.passed ? "" : styles.notPassed}
           >
             {!s.passed && "[nicht bestanden]"} {s.station.name} (
-            {
-              allStations
-                .map((allS, index) => ({ index, station: allS }))
-                .find((allS) => allS.station.name === s.station.name)?.index
-            }
+            {(allStations
+              .map((allS, index) => ({ index, station: allS }))
+              .find((allS) => allS.station.name === s.station.name)?.index ??
+              0) + 1}
             ) :{" "}
             {s.time !== undefined && formatSecondsToMinutesAndSeconds(s.time)}
           </div>
