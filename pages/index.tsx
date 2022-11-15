@@ -6,6 +6,7 @@ import CreatePersonForm from "../components/CreatePersonForm";
 import { ScoreBoardData } from "../components/ScoreBoard";
 import StationView from "../components/StationView";
 import { Person } from "../models/Person";
+import { allStations } from "../models/Station";
 
 import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
@@ -33,11 +34,14 @@ const Home: NextPage = () => {
   }
 
   useEffect(() => {
-    const savedScoreBoardProps = getScoreBoardDatasFromStorage();
-    if (savedScoreBoardProps) {
-      setScoreBoardDatas(savedScoreBoardProps);
-      setStarted(true);
-    }
+    getScoreBoardDatasFromStorage().then((savedScoreBoardProps) => {
+      console.log(savedScoreBoardProps);
+
+      if (savedScoreBoardProps.length !== 0) {
+        setScoreBoardDatas(savedScoreBoardProps);
+        setStarted(true);
+      }
+    });
   }, []);
 
   return (
@@ -93,7 +97,9 @@ const Home: NextPage = () => {
                   setScoreBoardDatas((state) => [
                     ...state,
                     {
+                      name: person.name,
                       person,
+                      stationIndex: 0,
                       stationTimes: [],
                       startTimestamp: undefined,
                       endTimestamp: undefined,

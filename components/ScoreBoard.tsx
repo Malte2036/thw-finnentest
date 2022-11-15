@@ -13,7 +13,9 @@ export type StationTime = {
 };
 
 export type ScoreBoardData = {
+  name: string;
   person: Person;
+  stationIndex: number;
   stationTimes: StationTime[];
   startTimestamp: number | undefined;
   endTimestamp: number | undefined;
@@ -28,7 +30,9 @@ export type ScoreBoardProps = ScoreBoardData & {
 };
 
 export default function ScoreBoard({
+  name,
   person,
+  stationIndex,
   stationTimes,
   startTimestamp,
   endTimestamp,
@@ -41,7 +45,9 @@ export default function ScoreBoard({
   useEffect(() => {
     if (save !== undefined) {
       save({
+        name,
         person,
+        stationIndex,
         stationTimes,
         startTimestamp,
         endTimestamp,
@@ -51,7 +57,9 @@ export default function ScoreBoard({
       });
     }
   }, [
+    name,
     person,
+    stationIndex,
     stationTimes,
     startTimestamp,
     endTimestamp,

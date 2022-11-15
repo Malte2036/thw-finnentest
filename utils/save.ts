@@ -1,20 +1,18 @@
 import { ScoreBoardData } from "../components/ScoreBoard";
+import { db } from "./db";
 
-export function saveScoreBoardDataToStorage(scoreBoardData: ScoreBoardData) {
-  let datas = getScoreBoardDatasFromStorage() ?? [];
-
-  datas = [
-    ...datas.filter((data) => data.person.name !== scoreBoardData.person.name),
-    scoreBoardData,
-  ];
-  localStorage.setItem("savedScoreBoardDatas", JSON.stringify(datas));
+export async function saveScoreBoardDataToStorage(
+  scoreBoardData: ScoreBoardData
+) {
+  await db.scoreBoardDatas.put(scoreBoardData);
 }
 
-export function removeScoreBoardDatasFromStorage() {
-  localStorage.removeItem("savedScoreBoardDatas");
+export async function removeScoreBoardDatasFromStorage() {
+  await db.scoreBoardDatas.clear();
 }
 
-export function getScoreBoardDatasFromStorage(): ScoreBoardData[] | undefined {
-  const item = localStorage.getItem("savedScoreBoardDatas");
-  return item !== null ? (JSON.parse(item) as ScoreBoardData[]) : undefined;
+export async function getScoreBoardDatasFromStorage(): Promise<
+  ScoreBoardData[]
+> {
+  return await db.scoreBoardDatas.toArray();
 }

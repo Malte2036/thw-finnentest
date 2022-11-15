@@ -24,9 +24,7 @@ export default function StationView({
   const [person, setPerson] = useState<Person>(incommingScoreBoardData.person);
 
   const [stationIndex, setStationIndex] = useState<number>(
-    incommingScoreBoardData.stationTimes.length != 0
-      ? incommingScoreBoardData.stationTimes.length - 1
-      : 0
+    incommingScoreBoardData.stationIndex
   );
   const [station, setStation] = useState<Station>(allStations[stationIndex]);
 
@@ -148,7 +146,9 @@ export default function StationView({
   return (
     <div className={styles.mainContainer}>
       <ScoreBoard
+        name={person.name}
         person={person}
+        stationIndex={stationIndex}
         stationTimes={stationTimes}
         startTimestamp={startTimestamp}
         endTimestamp={endTimestamp}
