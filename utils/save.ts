@@ -1,3 +1,4 @@
+import { SimplePerson } from "../models/Person";
 import { ScoreBoardData } from "../models/ScoreBoardData";
 import { db } from "./db";
 
@@ -15,4 +16,8 @@ export async function getScoreBoardDatasFromStorage(): Promise<
   ScoreBoardData[]
 > {
   return await db.scoreBoardDatas.toArray();
+}
+
+export async function savePersonToStorage(person: SimplePerson) {
+  await db.persons.put({ name: person.name });
 }

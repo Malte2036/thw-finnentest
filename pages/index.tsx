@@ -12,6 +12,7 @@ import styles from "../styles/Home.module.css";
 import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
+  savePersonToStorage,
 } from "../utils/save";
 
 const Home: NextPage = () => {
@@ -88,6 +89,7 @@ const Home: NextPage = () => {
           <>
             <CreatePersonForm
               addPerson={(person: Person) => {
+                savePersonToStorage(person);
                 if (
                   !getPersons()
                     .map((p) => p.name)
