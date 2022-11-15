@@ -18,6 +18,10 @@ export async function getScoreBoardDatasFromStorage(): Promise<
   return await db.scoreBoardDatas.toArray();
 }
 
-export async function savePersonToStorage(person: SimplePerson) {
+export async function saveSimplePersonToStorage(person: SimplePerson) {
   await db.persons.put({ name: person.name });
+}
+
+export async function getSimplePersonFromStorage(): Promise<SimplePerson[]> {
+  return await db.persons.toArray();
 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView, { StationStatus } from "../components/StationView";
-import { Person } from "../models/Person";
+import { Person, SimplePerson } from "../models/Person";
 import { ScoreBoardData } from "../models/ScoreBoardData";
 
 import thwLogo from "../public/THW.svg";
@@ -12,14 +12,23 @@ import styles from "../styles/Home.module.css";
 import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
-  savePersonToStorage,
+  saveSimplePersonToStorage,
   saveScoreBoardDataToStorage,
+  getSimplePersonFromStorage,
 } from "../utils/save";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);
 
   const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
+
+  const [allSavedSimplePersons, setAllSavedSimplePersons] = useState<
+    SimplePerson[]
+  >([]);
+
+  async function updateAllSavedSimplePersons() {
+    setAllSavedSimplePersons(await getSimplePersonFromStorage());
+  }
 
   const description =
     "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger der Feuerwehr oder des THW.";
@@ -41,10 +50,12 @@ const Home: NextPage = () => {
         setStarted(true);
       }
     });
+
+    updateAllSavedSimplePersons();
   }, []);
 
   const addPerson = (person: Person) => {
-    savePersonToStorage(person);
+    saveSimplePersonToStorage(person);
 
     setScoreBoardDatas((state) => [
       ...state.filter((s) => s.person.name !== person.name),
@@ -61,6 +72,8 @@ const Home: NextPage = () => {
         sumTime: undefined,
       },
     ]);
+
+    updateAllSavedSimplePersons();
   };
 
   return (
@@ -113,7 +126,10 @@ const Home: NextPage = () => {
           </>
         ) : (
           <>
-            <CreatePersonForm addPerson={addPerson} />
+            <CreatePersonForm
+              addPerson={addPerson}
+              allNames={allSavedSimplePersons.map((p) => p.name)}
+            />
             <div className={styles.persons}>
               {getPersons().map((p) => (
                 <div key={p.name}>

@@ -1,11 +1,13 @@
 import styles from "../styles/Input.module.css";
 
-type InputProps<T> = {
+export type InputProps<T> = {
   value: T;
   type?: string;
   placeholder?: string;
   error?: string;
   onChange: (e: any) => void;
+  onFocus?: (e: any) => void;
+  onBlur?: (e: any) => void;
 };
 
 export default function Input({
@@ -14,6 +16,8 @@ export default function Input({
   placeholder,
   error,
   onChange,
+  onFocus,
+  onBlur,
 }: InputProps<number | string>) {
   return (
     <div>
@@ -21,6 +25,8 @@ export default function Input({
         value={value}
         type={type}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         placeholder={placeholder}
       />
       {error && <div className={styles.errorContainer}>{error}</div>}

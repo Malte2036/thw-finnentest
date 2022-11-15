@@ -2,22 +2,29 @@ import { useState } from "react";
 import { Person } from "../models/Person";
 import styles from "../styles/CreatePersonForm.module.css";
 import Input from "./Input";
+import SelectMenuInput from "./SelectMenuInput";
 
 export type CreatePersonFormProps = {
   addPerson: (person: Person) => void;
+  allNames: string[];
 };
 
-export default function CreatePersonForm({ addPerson }: CreatePersonFormProps) {
+export default function CreatePersonForm({
+  addPerson,
+  allNames,
+}: CreatePersonFormProps) {
   const [name, setName] = useState<string>("");
   const [startDruck, setStartDruck] = useState<number | undefined>();
   const [startDruckError, setStartDruckError] = useState<string | undefined>();
 
   return (
     <div className={styles.form}>
-      <Input
+      <SelectMenuInput
         value={name}
+        setValue={setName}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
+        items={allNames}
       />
       <Input
         value={startDruck === undefined ? "" : startDruck}

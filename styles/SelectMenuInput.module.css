@@ -1,0 +1,22 @@
+.selectItems{
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 4px;
+
+    min-width: 4rem;
+}
+
+.item {
+    cursor: pointer;
+
+    background: white;
+    border: 1px solid var(--accent);
+    padding: 4px;
+}
+
+.item:last-child{
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
