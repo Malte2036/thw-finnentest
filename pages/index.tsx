@@ -1,26 +1,44 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
+import { ScoreBoardData } from "../components/ScoreBoard";
 import StationView from "../components/StationView";
 import { Person } from "../models/Person";
 
 import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
+import {
+  getScoreBoardDatasFromStorage,
+  removeScoreBoardDatasFromStorage,
+} from "../utils/save";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);
 
-  const [persons, setPersons] = useState<Person[]>([]);
+  const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
 
   const description =
     "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger.";
 
   function resetTest() {
+    removeScoreBoardDatasFromStorage();
     setStarted(false);
-    setPersons([]);
+    setScoreBoardDatas([]);
   }
+
+  function getPersons(): Person[] {
+    return scoreBoardDatas.map((data) => data.person);
+  }
+
+  useEffect(() => {
+    const savedScoreBoardProps = getScoreBoardDatasFromStorage();
+    if (savedScoreBoardProps) {
+      setScoreBoardDatas(savedScoreBoardProps);
+      setStarted(true);
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -49,8 +67,8 @@ const Home: NextPage = () => {
         {started ? (
           <>
             <div className={styles.stationViewsContainer}>
-              {persons.map((p) => (
-                <StationView key={p.name} person={p} />
+              {scoreBoardDatas.map((data) => (
+                <StationView key={data.person.name} scoreBoardData={data} />
               ))}
             </div>
             <button
@@ -67,22 +85,38 @@ const Home: NextPage = () => {
           <>
             <CreatePersonForm
               addPerson={(person: Person) => {
-                if (!persons.map((p) => p.name).includes(person.name))
-                  setPersons((state) => [...state, person]);
+                if (
+                  !getPersons()
+                    .map((p) => p.name)
+                    .includes(person.name)
+                ) {
+                  setScoreBoardDatas((state) => [
+                    ...state,
+                    {
+                      person,
+                      stationTimes: [],
+                      startTimestamp: undefined,
+                      endTimestamp: undefined,
+                      endStationTime: undefined,
+                      stationStatus: undefined,
+                      finished: false,
+                    },
+                  ]);
+                }
               }}
             />
             <div className={styles.persons}>
-              {persons.map((p) => (
+              {getPersons().map((p) => (
                 <div key={p.name}>
                   {p.name} (Startdruck: {p.druck.start} bar)
                   <br />
                 </div>
               ))}
             </div>
-            {persons.length > 0 && (
+            {scoreBoardDatas.length > 0 && (
               <button
                 onClick={() => setStarted(true)}
-                disabled={persons.length === 0}
+                disabled={getPersons().length === 0}
                 className={styles.startTestButton}
               >
                 Test starten

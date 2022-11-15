@@ -2,24 +2,64 @@ import styles from "../styles/ScoreBoard.module.css";
 import { Person } from "../models/Person";
 import { allStations, Station } from "../models/Station";
 import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
+import { useEffect } from "react";
+import { StationStatus } from "./StationView";
 
 export type StationTime = {
   station: Station;
   time: number | undefined;
+  endTime: number | undefined;
   passed: boolean | undefined;
 };
 
-export type ScoreBoardProps = {
+export type ScoreBoardData = {
   person: Person;
   stationTimes: StationTime[];
+  startTimestamp: number | undefined;
+  endTimestamp: number | undefined;
+  endStationTime: number | undefined;
+  stationStatus: StationStatus | undefined;
+  finished: boolean;
+};
+
+export type ScoreBoardProps = ScoreBoardData & {
   sumTimeSeconds: number | undefined;
+  save: (scoreBoardData: ScoreBoardData) => void;
 };
 
 export default function ScoreBoard({
   person,
-  sumTimeSeconds,
   stationTimes,
+  startTimestamp,
+  endTimestamp,
+  endStationTime,
+  stationStatus,
+  finished,
+  sumTimeSeconds,
+  save,
 }: ScoreBoardProps) {
+  useEffect(() => {
+    if (save !== undefined) {
+      save({
+        person,
+        stationTimes,
+        startTimestamp,
+        endTimestamp,
+        endStationTime,
+        stationStatus,
+        finished,
+      });
+    }
+  }, [
+    person,
+    stationTimes,
+    startTimestamp,
+    endTimestamp,
+    endStationTime,
+    stationStatus,
+    finished,
+  ]);
+
   return (
     <div>
       <h2>{person.name}</h2>

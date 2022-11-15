@@ -2,52 +2,68 @@ import { useEffect, useState } from "react";
 import { Person } from "../models/Person";
 import styles from "../styles/StationView.module.css";
 import BreakStationCard from "./StationCard/BreakStationCard";
-import ScoreBoard, { StationTime } from "./ScoreBoard";
+import ScoreBoard, { ScoreBoardData, StationTime } from "./ScoreBoard";
 import MainStationCard from "./StationCard/MainStationCard";
 import FinishedStationCard from "./StationCard/FinishedStationCard";
 import { allStations, Station } from "../models/Station";
 import { milisecondsToSeconds } from "../utils/utils";
+import { saveScoreBoardDataToStorage } from "../utils/save";
 
-enum StationStatus {
+export enum StationStatus {
   BREAK,
   NO_BREAK,
 }
 
 export type StationViewProps = {
-  person: Person;
+  scoreBoardData: ScoreBoardData;
 };
 
 export default function StationView({
-  person: incommingPerson,
+  scoreBoardData: incommingScoreBoardData,
 }: StationViewProps) {
-  const [person, setPerson] = useState<Person>(incommingPerson);
+  const [person, setPerson] = useState<Person>(incommingScoreBoardData.person);
 
-  useEffect(() => {
-    setPerson(incommingPerson);
-  }, [incommingPerson]);
-
-  const [station, setStation] = useState<Station>(allStations[0]);
-  const [stationIndex, setStationIndex] = useState<number>(0);
-
-  const [endStationTime, setEndStationTime] = useState<number>(
-    milisecondsToSeconds(Date.now()) + station.time
+  const [stationIndex, setStationIndex] = useState<number>(
+    incommingScoreBoardData.stationTimes.length != 0
+      ? incommingScoreBoardData.stationTimes.length - 1
+      : 0
   );
+  const [station, setStation] = useState<Station>(allStations[stationIndex]);
+
   const [nowTime, setNowTime] = useState<number>(
     milisecondsToSeconds(Date.now())
+  );
+
+  const [endStationTime, setEndStationTime] = useState<number>(
+    incommingScoreBoardData.endStationTime !== undefined
+      ? incommingScoreBoardData.endStationTime
+      : nowTime + station.time
   );
 
   const seconds = endStationTime - nowTime;
 
   const [stationStatus, setStationStatus] = useState<StationStatus>(
-    StationStatus.NO_BREAK
+    incommingScoreBoardData.stationStatus !== undefined
+      ? incommingScoreBoardData.stationStatus
+      : StationStatus.NO_BREAK
   );
 
-  const [stationTimes, setStationTimes] = useState<StationTime[]>([]);
+  const [stationTimes, setStationTimes] = useState<StationTime[]>(
+    incommingScoreBoardData.stationTimes
+  );
 
-  const [finished, setFinished] = useState<boolean>(false);
+  const [finished, setFinished] = useState<boolean>(
+    incommingScoreBoardData.finished
+  );
 
-  const [startTimestamp] = useState<number>(Date.now());
-  const [endTimestamp, setEndTimestamp] = useState<number | undefined>();
+  const [startTimestamp] = useState<number>(
+    incommingScoreBoardData.startTimestamp !== undefined
+      ? incommingScoreBoardData.startTimestamp
+      : Date.now()
+  );
+  const [endTimestamp, setEndTimestamp] = useState<number | undefined>(
+    incommingScoreBoardData.endTimestamp
+  );
 
   function updateStationTimes(passed: boolean) {
     setStationTimes((state) => [
@@ -55,6 +71,7 @@ export default function StationView({
       {
         station: station,
         time: station.time - seconds,
+        endTime: endStationTime,
         defaultTime: station.time,
         passed: passed,
       },
@@ -70,21 +87,16 @@ export default function StationView({
   }, [stationIndex]);
 
   useEffect(() => {
-      if (stationIndex >= allStations.length) {
-        setEndTimestamp(Date.now());
-        setFinished(true);
-      }
+    if (stationIndex >= allStations.length) {
+      setEndTimestamp(Date.now());
+      setFinished(true);
+    }
   }, [stationStatus]);
-
-  useEffect(() => {
-    setEndStationTime(milisecondsToSeconds(Date.now()) + station.time);
-    setStationStatus(StationStatus.NO_BREAK);
-  }, [station]);
 
   useEffect(() => {
     if (seconds <= 0 && stationStatus === StationStatus.BREAK) {
       //updateStationTimes();
-      setStationIndex((state) => state + 1);
+      startNextStation();
     }
     if (finished) {
       return;
@@ -110,9 +122,15 @@ export default function StationView({
           throw "clickNextStation: passed parameter is missing [b]";
         updateStationTimes(passed);
       }
-      setStationIndex((state) => state + 1);
-      setStationStatus(StationStatus.NO_BREAK);
+      startNextStation();
     }
+  }
+
+  function startNextStation() {
+    setStationIndex((state) => state + 1);
+
+    setEndStationTime(milisecondsToSeconds(Date.now()) + station.time);
+    setStationStatus(StationStatus.NO_BREAK);
   }
 
   function setEndDruckCallback(druck: number) {
@@ -123,11 +141,19 @@ export default function StationView({
     <div className={styles.mainContainer}>
       <ScoreBoard
         person={person}
+        stationTimes={stationTimes}
+        startTimestamp={startTimestamp}
+        endTimestamp={endTimestamp}
+        endStationTime={endStationTime}
         sumTimeSeconds={
           (endTimestamp ? milisecondsToSeconds(endTimestamp) : nowTime) -
           milisecondsToSeconds(startTimestamp)
         }
-        stationTimes={stationTimes}
+        stationStatus={stationStatus}
+        finished={finished}
+        save={(scoreBoardData: ScoreBoardData) => {
+          saveScoreBoardDataToStorage(scoreBoardData);
+        }}
       />
 
       {person.druck.end === undefined &&
