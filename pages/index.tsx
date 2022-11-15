@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
 
   const description =
-    "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger.";
+    "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger der Feuerwehr oder des THW.";
 
   function resetTest() {
     removeScoreBoardDatasFromStorage();
@@ -48,6 +48,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Finnentest</title>
         <link rel="icon" href="/icon-256x256.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={description} />
       </Head>
       <main className={styles.main}>
