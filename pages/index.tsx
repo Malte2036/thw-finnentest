@@ -112,6 +112,7 @@ const Home: NextPage = () => {
                       endStationTime: undefined,
                       stationStatus: StationStatus.NO_BREAK,
                       finished: false,
+                      sumTime: undefined,
                     },
                   ]);
                 }
