@@ -13,6 +13,7 @@ import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
   savePersonToStorage,
+  saveScoreBoardDataToStorage,
 } from "../utils/save";
 
 const Home: NextPage = () => {
@@ -70,7 +71,13 @@ const Home: NextPage = () => {
           <>
             <div className={styles.stationViewsContainer}>
               {scoreBoardDatas.map((data) => (
-                <StationView key={data.person.name} scoreBoardData={data} />
+                <StationView
+                  key={data.person.name}
+                  scoreBoardData={data}
+                  save={(scoreBoardData: ScoreBoardData) => {
+                    saveScoreBoardDataToStorage(scoreBoardData);
+                  }}
+                />
               ))}
             </div>
             <button

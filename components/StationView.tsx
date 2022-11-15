@@ -16,6 +16,7 @@ export enum StationStatus {
 
 export type StationViewProps = {
   scoreBoardData: ScoreBoardData;
+  save: (scoreBoardData: ScoreBoardData) => void;
 };
 
 enum ScoreBoardDataActionKind {
@@ -92,6 +93,7 @@ function scoreBoardDataReducer(
 
 export default function StationView({
   scoreBoardData: incommingScoreBoardData,
+  save,
 }: StationViewProps) {
   const [station, setStation] = useState<Station>(
     allStations[incommingScoreBoardData.stationIndex]
@@ -235,9 +237,7 @@ export default function StationView({
             ? milisecondsToSeconds(scoreBoardData.endTimestamp)
             : nowTime) - milisecondsToSeconds(scoreBoardData.startTimestamp!)
         }
-        save={(scoreBoardData: ScoreBoardData) => {
-          saveScoreBoardDataToStorage(scoreBoardData);
-        }}
+        save={save}
       />
 
       {scoreBoardData.person.druck.end === undefined &&
