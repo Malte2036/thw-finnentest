@@ -25,7 +25,6 @@ enum ScoreBoardDataActionKind {
   SET_STATION_TIMES,
   SET_END_DRUCK,
   SET_END_STATION_TIME,
-  SET_END_TIMESTAMP,
   SET_FINISHED,
 }
 
@@ -75,15 +74,13 @@ function scoreBoardDataReducer(
           milisecondsToSeconds(Date.now()) +
           allStations[state.stationIndex + 1].time,
       };
-    case ScoreBoardDataActionKind.SET_END_TIMESTAMP:
-      return {
-        ...state,
-        endTimestamp: action.payload,
-      };
     case ScoreBoardDataActionKind.SET_FINISHED:
+      const endTimestamp = milisecondsToSeconds(Date.now());
       return {
         ...state,
         finished: action.payload as boolean,
+        endTimestamp: endTimestamp,
+        sumTime: endTimestamp - milisecondsToSeconds(state.startTimestamp!),
       };
 
     default:
@@ -148,10 +145,6 @@ export default function StationView({
       !scoreBoardData.finished &&
       scoreBoardData.stationIndex - 1 >= allStations.length
     ) {
-      dispatchScoreboardData({
-        type: ScoreBoardDataActionKind.SET_END_TIMESTAMP,
-        payload: Date.now(),
-      });
       dispatchScoreboardData({
         type: ScoreBoardDataActionKind.SET_FINISHED,
         payload: true,
@@ -233,9 +226,9 @@ export default function StationView({
       <ScoreBoard
         scoreBoardData={scoreBoardData}
         sumTimeSeconds={
-          (scoreBoardData.endTimestamp
-            ? milisecondsToSeconds(scoreBoardData.endTimestamp)
-            : nowTime) - milisecondsToSeconds(scoreBoardData.startTimestamp!)
+          scoreBoardData.finished
+            ? scoreBoardData.sumTime
+            : nowTime - milisecondsToSeconds(scoreBoardData.startTimestamp!)
         }
         save={save}
       />

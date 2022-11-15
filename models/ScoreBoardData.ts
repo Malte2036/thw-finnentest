@@ -12,4 +12,5 @@ export type ScoreBoardData = {
   endStationTime: number | undefined;
   stationStatus: StationStatus | undefined;
   finished: boolean;
+  sumTime: number | undefined;
 };
