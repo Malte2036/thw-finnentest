@@ -31,15 +31,15 @@ export default function MainStationCard({
           [styles.timeover]: seconds <= 0,
         })}
       >
+        {seconds > -15 && (
+          <button onClick={() => clickNextStation(true)}>Geschafft</button>
+        )}
         <button
           className={styles.secondaryButton}
           onClick={() => clickNextStation(false)}
         >
           Nicht geschafft
         </button>
-        {seconds > -15 && (
-          <button onClick={() => clickNextStation(true)}>Geschafft</button>
-        )}
       </div>
     </div>
   );
