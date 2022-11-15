@@ -43,6 +43,26 @@ const Home: NextPage = () => {
     });
   }, []);
 
+  const addPerson = (person: Person) => {
+    savePersonToStorage(person);
+
+    setScoreBoardDatas((state) => [
+      ...state.filter((s) => s.person.name !== person.name),
+      {
+        name: person.name,
+        person,
+        stationIndex: 0,
+        stationTimes: [],
+        startTimestamp: undefined,
+        endTimestamp: undefined,
+        endStationTime: undefined,
+        stationStatus: StationStatus.NO_BREAK,
+        finished: false,
+        sumTime: undefined,
+      },
+    ]);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -93,32 +113,7 @@ const Home: NextPage = () => {
           </>
         ) : (
           <>
-            <CreatePersonForm
-              addPerson={(person: Person) => {
-                savePersonToStorage(person);
-                if (
-                  !getPersons()
-                    .map((p) => p.name)
-                    .includes(person.name)
-                ) {
-                  setScoreBoardDatas((state) => [
-                    ...state,
-                    {
-                      name: person.name,
-                      person,
-                      stationIndex: 0,
-                      stationTimes: [],
-                      startTimestamp: undefined,
-                      endTimestamp: undefined,
-                      endStationTime: undefined,
-                      stationStatus: StationStatus.NO_BREAK,
-                      finished: false,
-                      sumTime: undefined,
-                    },
-                  ]);
-                }
-              }}
-            />
+            <CreatePersonForm addPerson={addPerson} />
             <div className={styles.persons}>
               {getPersons().map((p) => (
                 <div key={p.name}>

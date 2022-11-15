@@ -1,0 +1,6 @@
+.errorContainer {
+    position: absolute;
+    color: var(--warning);
+    font-size: 0.75rem;
+    margin-left: 0.1rem;
+}
