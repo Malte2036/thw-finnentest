@@ -21,6 +21,17 @@
   font-size: 4rem;
 }
 
+
+.description {
+  max-width: 60rem;
+}
+
+@media (min-width: 1025px) {
+  .description {
+    font-size: 1.5rem;
+  }
+}
+
 .title,
 .description {
   text-align: center;
