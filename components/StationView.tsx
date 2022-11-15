@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Person } from "../models/Person";
+import { useEffect, useReducer, useState } from "react";
 import styles from "../styles/StationView.module.css";
 import BreakStationCard from "./StationCard/BreakStationCard";
-import ScoreBoard, { ScoreBoardData, StationTime } from "./ScoreBoard";
+import ScoreBoard, { StationTime } from "./ScoreBoard";
 import MainStationCard from "./StationCard/MainStationCard";
 import FinishedStationCard from "./StationCard/FinishedStationCard";
 import { allStations, Station } from "../models/Station";
 import { milisecondsToSeconds } from "../utils/utils";
 import { saveScoreBoardDataToStorage } from "../utils/save";
+import { ScoreBoardData } from "../models/ScoreBoardData";
 
 export enum StationStatus {
   BREAK,
@@ -18,85 +18,148 @@ export type StationViewProps = {
   scoreBoardData: ScoreBoardData;
 };
 
+enum ScoreBoardDataActionKind {
+  INCREMENT_STATION_INDEX,
+  SET_STATION_STATUS,
+  SET_STATION_TIMES,
+  SET_END_DRUCK,
+  SET_END_STATION_TIME,
+  SET_END_TIMESTAMP,
+  SET_FINISHED,
+}
+
+type ScoreBoardDataAction = {
+  type: ScoreBoardDataActionKind;
+  payload: any;
+};
+
+function scoreBoardDataReducer(
+  state: ScoreBoardData,
+  action: ScoreBoardDataAction
+): ScoreBoardData {
+  switch (action.type) {
+    case ScoreBoardDataActionKind.INCREMENT_STATION_INDEX:
+      return {
+        ...state,
+        stationIndex: state.stationIndex + 1,
+      };
+    case ScoreBoardDataActionKind.SET_STATION_STATUS:
+      return {
+        ...state,
+        stationStatus: action.payload as StationStatus,
+      };
+    case ScoreBoardDataActionKind.SET_STATION_TIMES:
+      const stationTime = action.payload as StationTime;
+      return {
+        ...state,
+        stationTimes: [
+          ...state.stationTimes.filter(
+            (s) => s.station.name !== stationTime.station.name
+          ),
+          stationTime,
+        ],
+      };
+    case ScoreBoardDataActionKind.SET_END_DRUCK:
+      return {
+        ...state,
+        person: {
+          ...state.person,
+          druck: { ...state.person.druck, end: action.payload },
+        },
+      };
+    case ScoreBoardDataActionKind.SET_END_STATION_TIME:
+      return {
+        ...state,
+        endStationTime:
+          milisecondsToSeconds(Date.now()) +
+          allStations[state.stationIndex + 1].time,
+      };
+    case ScoreBoardDataActionKind.SET_END_TIMESTAMP:
+      return {
+        ...state,
+        endTimestamp: action.payload,
+      };
+    case ScoreBoardDataActionKind.SET_FINISHED:
+      return {
+        ...state,
+        finished: action.payload as boolean,
+      };
+
+    default:
+      throw new Error(`action kind: ${action.type} not found!`);
+  }
+}
+
 export default function StationView({
   scoreBoardData: incommingScoreBoardData,
 }: StationViewProps) {
-  const [person, setPerson] = useState<Person>(incommingScoreBoardData.person);
-
-  const [stationIndex, setStationIndex] = useState<number>(
-    incommingScoreBoardData.stationIndex
+  const [station, setStation] = useState<Station>(
+    allStations[incommingScoreBoardData.stationIndex]
   );
-  const [station, setStation] = useState<Station>(allStations[stationIndex]);
+
+  const [scoreBoardData, dispatchScoreboardData] = useReducer(
+    scoreBoardDataReducer,
+    (() => {
+      let ret = incommingScoreBoardData;
+      if (ret.endStationTime === undefined) {
+        ret.endStationTime = milisecondsToSeconds(Date.now()) + station.time;
+      }
+      if (ret.startTimestamp === undefined) {
+        ret.startTimestamp = Date.now();
+      }
+      return ret;
+    })()
+  );
 
   const [nowTime, setNowTime] = useState<number>(
     milisecondsToSeconds(Date.now())
   );
 
-  const [endStationTime, setEndStationTime] = useState<number>(
-    incommingScoreBoardData.endStationTime !== undefined
-      ? incommingScoreBoardData.endStationTime
-      : milisecondsToSeconds(Date.now()) + station.time
-  );
-
-  const seconds = endStationTime - nowTime;
-
-  const [stationStatus, setStationStatus] = useState<StationStatus>(
-    incommingScoreBoardData.stationStatus !== undefined
-      ? incommingScoreBoardData.stationStatus
-      : StationStatus.NO_BREAK
-  );
-
-  const [stationTimes, setStationTimes] = useState<StationTime[]>(
-    incommingScoreBoardData.stationTimes
-  );
-
-  const [finished, setFinished] = useState<boolean>(
-    incommingScoreBoardData.finished
-  );
-
-  const [startTimestamp] = useState<number>(
-    incommingScoreBoardData.startTimestamp !== undefined
-      ? incommingScoreBoardData.startTimestamp
-      : Date.now()
-  );
-  const [endTimestamp, setEndTimestamp] = useState<number | undefined>(
-    incommingScoreBoardData.endTimestamp
-  );
+  const seconds = scoreBoardData.endStationTime! - nowTime;
 
   function updateStationTimes(passed: boolean) {
-    setStationTimes((state) => [
-      ...state.filter((s) => s.station.name !== station.name),
-      {
-        station: station,
-        time: station.time - seconds,
-        endTime: endStationTime,
-        defaultTime: station.time,
-        passed: passed,
-      },
-    ]);
+    const stationTime: StationTime = {
+      station: station,
+      time: station.time - seconds,
+      endTime: scoreBoardData.endStationTime,
+      passed: passed,
+    };
+    dispatchScoreboardData({
+      type: ScoreBoardDataActionKind.SET_STATION_TIMES,
+      payload: stationTime,
+    });
   }
 
   useEffect(() => {
-    if (stationIndex >= allStations.length) {
-      setFinished(true);
+    if (scoreBoardData.stationIndex >= allStations.length) {
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_FINISHED,
+        payload: true,
+      });
       return;
     }
-    setStation(allStations[stationIndex]);
-  }, [stationIndex]);
+    setStation(allStations[scoreBoardData.stationIndex]);
+  }, [scoreBoardData.stationIndex]);
 
   useEffect(() => {
-    if (stationIndex >= allStations.length) {
-      setEndTimestamp(Date.now());
-      setFinished(true);
+    if (!scoreBoardData.finished && isLastStation()) {
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_END_TIMESTAMP,
+        payload: Date.now(),
+      });
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_FINISHED,
+        payload: true,
+      });
     }
-  }, [stationStatus]);
+  }, [scoreBoardData.stationStatus]);
 
   useEffect(() => {
-    if (seconds <= 0 && stationStatus === StationStatus.BREAK) {
+    if (seconds <= 0 && scoreBoardData.stationStatus === StationStatus.BREAK) {
       //updateStationTimes();
       startNextStation();
     }
-    if (finished) {
+    if (scoreBoardData.finished) {
       return;
     }
 
@@ -108,14 +171,17 @@ export default function StationView({
   }, [nowTime]);
 
   function clickNextStation(passed?: boolean) {
-    if (seconds > 0 && stationStatus == StationStatus.NO_BREAK) {
+    if (seconds > 0 && scoreBoardData.stationStatus == StationStatus.NO_BREAK) {
       if (passed === undefined)
         throw "clickNextStation: passed parameter is missing [a]";
 
       updateStationTimes(passed);
-      setStationStatus(StationStatus.BREAK);
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_STATION_STATUS,
+        payload: StationStatus.BREAK,
+      });
     } else {
-      if (stationStatus == StationStatus.NO_BREAK) {
+      if (scoreBoardData.stationStatus == StationStatus.NO_BREAK) {
         if (passed === undefined)
           throw "clickNextStation: passed parameter is missing [b]";
         updateStationTimes(passed);
@@ -125,57 +191,60 @@ export default function StationView({
   }
 
   function isLastStation() {
-    return allStations.length - 1 <= stationIndex;
+    return allStations.length - 1 <= scoreBoardData.stationIndex;
   }
 
   function startNextStation() {
     if (!isLastStation()) {
-      setEndStationTime(
-        milisecondsToSeconds(Date.now()) + allStations[stationIndex + 1].time
-      );
+      dispatchScoreboardData({
+        type: ScoreBoardDataActionKind.SET_END_STATION_TIME,
+        payload: undefined,
+      });
     }
 
-    setStationIndex((state) => state + 1);
-    setStationStatus(StationStatus.NO_BREAK);
+    dispatchScoreboardData({
+      type: ScoreBoardDataActionKind.INCREMENT_STATION_INDEX,
+      payload: undefined,
+    });
+    dispatchScoreboardData({
+      type: ScoreBoardDataActionKind.SET_STATION_STATUS,
+      payload: StationStatus.NO_BREAK,
+    });
   }
 
   function setEndDruckCallback(druck: number) {
-    setPerson((state) => ({ ...state, druck: { ...state.druck, end: druck } }));
+    dispatchScoreboardData({
+      type: ScoreBoardDataActionKind.SET_END_DRUCK,
+      payload: druck,
+    });
   }
 
   return (
     <div className={styles.mainContainer}>
       <ScoreBoard
-        name={person.name}
-        person={person}
-        stationIndex={stationIndex}
-        stationTimes={stationTimes}
-        startTimestamp={startTimestamp}
-        endTimestamp={endTimestamp}
-        endStationTime={endStationTime}
+        scoreBoardData={scoreBoardData}
         sumTimeSeconds={
-          (endTimestamp ? milisecondsToSeconds(endTimestamp) : nowTime) -
-          milisecondsToSeconds(startTimestamp)
+          (scoreBoardData.endTimestamp
+            ? milisecondsToSeconds(scoreBoardData.endTimestamp)
+            : nowTime) - milisecondsToSeconds(scoreBoardData.startTimestamp!)
         }
-        stationStatus={stationStatus}
-        finished={finished}
         save={(scoreBoardData: ScoreBoardData) => {
           saveScoreBoardDataToStorage(scoreBoardData);
         }}
       />
 
-      {person.druck.end === undefined &&
-        (!finished ? (
-          stationStatus == StationStatus.BREAK ? (
+      {scoreBoardData.person.druck.end === undefined &&
+        (!scoreBoardData.finished ? (
+          scoreBoardData.stationStatus == StationStatus.BREAK ? (
             <BreakStationCard
               seconds={seconds}
-              stationIndex={stationIndex}
+              stationIndex={scoreBoardData.stationIndex}
               clickNextStation={clickNextStation}
             />
           ) : (
             <MainStationCard
               station={station}
-              stationIndex={stationIndex}
+              stationIndex={scoreBoardData.stationIndex}
               seconds={seconds}
               clickNextStation={clickNextStation}
             />

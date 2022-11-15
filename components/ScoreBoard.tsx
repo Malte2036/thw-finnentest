@@ -1,9 +1,8 @@
 import styles from "../styles/ScoreBoard.module.css";
-import { Person } from "../models/Person";
 import { allStations, Station } from "../models/Station";
 import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
 import { useEffect } from "react";
-import { StationStatus } from "./StationView";
+import { ScoreBoardData } from "../models/ScoreBoardData";
 
 export type StationTime = {
   station: Station;
@@ -12,73 +11,37 @@ export type StationTime = {
   passed: boolean | undefined;
 };
 
-export type ScoreBoardData = {
-  name: string;
-  person: Person;
-  stationIndex: number;
-  stationTimes: StationTime[];
-  startTimestamp: number | undefined;
-  endTimestamp: number | undefined;
-  endStationTime: number | undefined;
-  stationStatus: StationStatus | undefined;
-  finished: boolean;
-};
-
-export type ScoreBoardProps = ScoreBoardData & {
+export type ScoreBoardProps = {
+  scoreBoardData: ScoreBoardData;
   sumTimeSeconds: number | undefined;
   save: (scoreBoardData: ScoreBoardData) => void;
 };
 
 export default function ScoreBoard({
-  name,
-  person,
-  stationIndex,
-  stationTimes,
-  startTimestamp,
-  endTimestamp,
-  endStationTime,
-  stationStatus,
-  finished,
+  scoreBoardData,
   sumTimeSeconds,
   save,
 }: ScoreBoardProps) {
   useEffect(() => {
     if (save !== undefined) {
-      save({
-        name,
-        person,
-        stationIndex,
-        stationTimes,
-        startTimestamp,
-        endTimestamp,
-        endStationTime,
-        stationStatus,
-        finished,
-      });
+      save(scoreBoardData);
     }
-  }, [
-    name,
-    person,
-    stationIndex,
-    stationTimes,
-    startTimestamp,
-    endTimestamp,
-    endStationTime,
-    stationStatus,
-    finished,
-  ]);
+  }, [scoreBoardData, save]);
 
   return (
     <div>
-      <h2>{person.name}</h2>
-      Startdruck: {person.druck.start} bar
+      <h2>{scoreBoardData.person.name}</h2>
+      Startdruck: {scoreBoardData.person.druck.start} bar
       <br />
       Enddruck:{" "}
-      {person.druck.end !== undefined ? `${person.druck.end} bar` : ""}
+      {scoreBoardData.person.druck.end !== undefined
+        ? `${scoreBoardData.person.druck.end} bar`
+        : ""}
       <br />
       Gesamtverbrauch:{" "}
-      {person.druck.end !== undefined && sumTimeSeconds !== undefined
-        ? `${calcLPerMin(person, sumTimeSeconds!)} l/min`
+      {scoreBoardData.person.druck.end !== undefined &&
+      sumTimeSeconds !== undefined
+        ? `${calcLPerMin(scoreBoardData.person, sumTimeSeconds!)} l/min`
         : ""}
       <br />
       Gesamtzeit:{" "}
@@ -87,7 +50,7 @@ export default function ScoreBoard({
         : ""}
       <br />
       <br />
-      {stationTimes
+      {scoreBoardData.stationTimes
         .filter((s) => s.time !== undefined)
         .map((s) => (
           <div

@@ -1,4 +1,4 @@
-import { ScoreBoardData } from "../components/ScoreBoard";
+import { ScoreBoardData } from "../models/ScoreBoardData";
 import { db } from "./db";
 
 export async function saveScoreBoardDataToStorage(

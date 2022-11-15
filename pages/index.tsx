@@ -3,10 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
-import { ScoreBoardData } from "../components/ScoreBoard";
-import StationView from "../components/StationView";
+import StationView, { StationStatus } from "../components/StationView";
 import { Person } from "../models/Person";
-import { allStations } from "../models/Station";
+import { ScoreBoardData } from "../models/ScoreBoardData";
 
 import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
@@ -104,7 +103,7 @@ const Home: NextPage = () => {
                       startTimestamp: undefined,
                       endTimestamp: undefined,
                       endStationTime: undefined,
-                      stationStatus: undefined,
+                      stationStatus: StationStatus.NO_BREAK,
                       finished: false,
                     },
                   ]);
