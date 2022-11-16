@@ -64,7 +64,10 @@ export default function StationView({
   }
 
   useEffect(() => {
-    if (scoreBoardData.stationIndex - 1 >= allStations.length) {
+    if (
+      !scoreBoardData.finished &&
+      scoreBoardData.stationIndex - 1 >= allStations.length
+    ) {
       dispatchScoreboardData({
         type: ScoreBoardDataActionKind.SET_FINISHED,
         payload: true,
@@ -140,10 +143,12 @@ export default function StationView({
         payload: StationStatus.NO_BREAK,
       });
     } else {
-      dispatchScoreboardData({
-        type: ScoreBoardDataActionKind.SET_FINISHED,
-        payload: true,
-      });
+      if (!scoreBoardData.finished) {
+        dispatchScoreboardData({
+          type: ScoreBoardDataActionKind.SET_FINISHED,
+          payload: true,
+        });
+      }
     }
   }
 

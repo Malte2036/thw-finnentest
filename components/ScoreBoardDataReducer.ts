@@ -60,10 +60,17 @@ export function scoreBoardDataReducer(
           allStations[state.stationIndex + 1].time,
       };
     case ScoreBoardDataActionKind.SET_FINISHED:
+      const finished = action.payload as boolean;
+      if (state.finished === finished) {
+        throw new Error(
+          `SET_FINISHED: Person ${state.name} is already finished=${state.finished}.`
+        );
+      }
+
       const endTimestamp = milisecondsToSeconds(Date.now());
       return {
         ...state,
-        finished: action.payload as boolean,
+        finished: finished,
         endTimestamp: endTimestamp,
         sumTime: endTimestamp - milisecondsToSeconds(state.startTimestamp!),
       };
