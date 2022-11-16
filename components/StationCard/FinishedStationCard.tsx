@@ -33,7 +33,7 @@ export default function FinishedStationCard({
           disabled={endDruck === undefined}
           className={styles.submitButton}
         >
-          Submit
+          Absenden
         </button>
       </div>
     </div>

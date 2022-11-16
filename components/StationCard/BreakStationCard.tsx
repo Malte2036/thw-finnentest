@@ -15,7 +15,7 @@ export default function BreakStationCard({
 }: BreakStationCardProps) {
   return (
     <div className={`${styles.card} ${styles.break}`}>
-      <h2>Pause</h2>
+      <h2>Pause:</h2>
       Nächste Station:{" "}
       {allStations.length > stationIndex + 1 &&
         allStations[stationIndex + 1].name}{" "}
@@ -23,7 +23,7 @@ export default function BreakStationCard({
       )
       <br />
       <br />
-      Verbleibende Zeit: {formatSecondsToMinutesAndSeconds(seconds)}
+      Verbleibende Pause: {formatSecondsToMinutesAndSeconds(seconds)}
       <div className={styles.buttonsContainer}>
         <button
           onClick={() => clickNextStation()}
