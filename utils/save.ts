@@ -1,6 +1,7 @@
 import { SimplePerson } from "../models/Person";
 import { ScoreBoardData } from "../models/ScoreBoardData";
 import { db } from "./db";
+import { milisecondsToSeconds, secondsToHours } from "./utils";
 
 export async function saveScoreBoardDataToStorage(
   scoreBoardData: ScoreBoardData
@@ -15,7 +16,20 @@ export async function removeScoreBoardDatasFromStorage() {
 export async function getScoreBoardDatasFromStorage(): Promise<
   ScoreBoardData[]
 > {
-  return await db.scoreBoardDatas.toArray();
+  const datas = await db.scoreBoardDatas.toArray();
+
+  if (datas.length > 0 && datas[0].startTimestamp !== undefined) {
+    const secondsSinceStart = milisecondsToSeconds(
+      Date.now() - datas[0].startTimestamp
+    );
+
+    // clear after 12 hours
+    if (secondsToHours(secondsSinceStart) > 12) {
+      removeScoreBoardDatasFromStorage();
+      return [];
+    }
+  }
+  return datas;
 }
 
 export async function saveSimplePersonToStorage(person: SimplePerson) {

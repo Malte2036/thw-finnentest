@@ -26,3 +26,7 @@ export function calcLPerMin(person: Person, sumTimeSeconds: number) {
 export function milisecondsToSeconds(mili: number): number {
   return mili / 1000;
 }
+
+export function secondsToHours(seconds: number): number {
+  return seconds / (60 * 60);
+}
