@@ -17,6 +17,8 @@ export default function CreatePersonForm({
   const [startDruck, setStartDruck] = useState<number | undefined>();
   const [startDruckError, setStartDruckError] = useState<string | undefined>();
 
+  const isStartDruckSet = startDruck !== undefined && !isNaN(startDruck);
+
   return (
     <div className={styles.form}>
       <SelectMenuInput
@@ -27,17 +29,21 @@ export default function CreatePersonForm({
         items={allNames}
       />
       <Input
-        value={startDruck === undefined ? "" : startDruck}
+        value={isStartDruckSet ? startDruck : ""}
         type="number"
         onChange={(e) => {
-          setStartDruck(Number.parseFloat(e.target.value));
+          setStartDruck(
+            !isNaN(Number.parseFloat(e.target.value))
+              ? Number.parseFloat(e.target.value)
+              : undefined
+          );
         }}
         placeholder="Startdruck"
         error={startDruckError}
       />
       <button
         onClick={() => {
-          if (!startDruck || startDruck <= 0 || startDruck > 450) {
+          if (!isStartDruckSet || startDruck <= 0 || startDruck > 450) {
             setStartDruckError(
               "Der Startdruck muss zwischen 1 und 450 bar liegen."
             );
