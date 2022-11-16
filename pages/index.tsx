@@ -152,8 +152,18 @@ const Home: NextPage = () => {
               {lang("more-thw-tools")}
             </a>
           </div>
-          <div>©2022 Malte Sehmer</div>
+          <div>
+            <a
+              className={styles.copyrightName}
+              href="https://github.com/Malte2036/thw-finnentest/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ©2022 Malte Sehmer
+            </a>
+          </div>
         </div>
+        <div className={styles.githubIconContainer}></div>
       </main>
     </div>
   );

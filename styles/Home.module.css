@@ -74,3 +74,8 @@
   display: flex;
   gap: 1rem;
 }
+
+.copyrightName{
+  color: var(--secondary);
+  text-decoration: none;
+}
