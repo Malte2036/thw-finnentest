@@ -34,9 +34,13 @@ button {
 
 button:disabled {
   background: var(--primary);
-  color: black;
+  color: var(--secondary);
 
   cursor: default !important;
+}
+
+button:hover {
+  border-width: 2px;
 }
 
 a:hover, button:hover {

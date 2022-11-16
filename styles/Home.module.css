@@ -42,9 +42,11 @@
 }
 
 .resetTestButton {
-  width: 100px;
+  width: 6rem;
   margin-top: 2rem;
-  background: var(--secondary);
+  background: var(--primary);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .checkBoxContainer {

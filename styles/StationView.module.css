@@ -40,7 +40,9 @@
 }
 
 .secondaryButton {
-  background: var(--secondary);
+  background: var(--primary);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .submitButton {
