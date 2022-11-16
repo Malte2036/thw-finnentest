@@ -51,6 +51,7 @@ export default function SelectMenuInput({
               <div
                 key={item}
                 className={styles.item}
+                role="button"
                 onClick={() => {
                   setValue(item);
                   setOpen(false);

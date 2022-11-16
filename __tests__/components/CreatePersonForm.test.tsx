@@ -4,7 +4,7 @@ import CreatePersonForm from "../../components/CreatePersonForm";
 
 describe("CreatePersonForm", () => {
   it("renders nameInputField and startdruckInputField", () => {
-    render(<CreatePersonForm addPerson={() => undefined} />);
+    render(<CreatePersonForm addPerson={() => undefined} allNames={[]} />);
 
     const nameInputField = screen.getByPlaceholderText("Name");
     const startdruckInputField = screen.getByPlaceholderText("Startdruck");

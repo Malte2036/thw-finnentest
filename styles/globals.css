@@ -53,6 +53,9 @@ h2 {
 
 input {
   height: 2rem;
+  padding: 8px;
+  margin-left: 3px;
+  margin-right: 3px;
 
   border-radius: var(--border-radius);
   border-style: solid;
@@ -62,6 +65,8 @@ input {
 
 *:focus {
   border-width: 4px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 * {
