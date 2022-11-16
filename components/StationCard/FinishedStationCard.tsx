@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "../../styles/StationView.module.css";
+import { lang } from "../../utils/language/language";
 import Input from "../Input";
 
 export type FinishedStationCardProps = {
@@ -13,8 +14,8 @@ export default function FinishedStationCard({
   const [endDruckError, setEndDruckError] = useState<string | undefined>();
   return (
     <div className={styles.card}>
-      <h2>Beendet</h2>
-      <label>Enddruck:</label>
+      <h2>{lang("finished")}</h2>
+      <label>{lang("enddruck")}:</label>
       <div className={styles.endDruckContainer}>
         <Input
           type={"number"}
@@ -32,9 +33,7 @@ export default function FinishedStationCard({
         <button
           onClick={() => {
             if (endDruck === undefined || endDruck <= 0 || endDruck > 450) {
-              setEndDruckError(
-                "Der Enddruck muss zwischen 1 und 450 bar liegen."
-              );
+              setEndDruckError(lang("enddruck-error-range"));
               setEndDruck(undefined);
               return;
             }
@@ -44,7 +43,7 @@ export default function FinishedStationCard({
           disabled={endDruck === undefined}
           className={styles.submitButton}
         >
-          Absenden
+          {lang("submit")}
         </button>
       </div>
     </div>

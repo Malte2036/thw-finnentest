@@ -9,6 +9,7 @@ import { ScoreBoardData } from "../models/ScoreBoardData";
 
 import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
+import { lang } from "../utils/language/language";
 import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
@@ -29,9 +30,6 @@ const Home: NextPage = () => {
   async function updateAllSavedSimplePersons() {
     setAllSavedSimplePersons(await getSimplePersonFromStorage());
   }
-
-  const description =
-    "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger der Feuerwehr oder des THW.";
 
   function resetTest() {
     removeScoreBoardDatasFromStorage();
@@ -82,14 +80,14 @@ const Home: NextPage = () => {
         <title>THW Finnentest</title>
         <link rel="icon" href="/icon-256x256.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={description} />
+        <meta name="description" content={lang("app-description")} />
       </Head>
       <main className={styles.main}>
         <Image src={thwLogo} width={125} height={125} alt="THW Logo" />
-        <h1 className={styles.title}>Finnentest</h1>
+        <h1 className={styles.title}>{lang("app-title")}</h1>
         {!started && (
           <p className={styles.description}>
-            {description} Mehr zum Finnentest{" "}
+            {lang("app-description")} {lang("app-description-more")}{" "}
             <a
               href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
               target="_blank"
@@ -116,12 +114,11 @@ const Home: NextPage = () => {
             </div>
             <button
               onClick={() =>
-                window.confirm("Willst du wirklich den Test zurücksetzen?") &&
-                resetTest()
+                window.confirm(lang("reset-test-confirmation")) && resetTest()
               }
               className={styles.resetTestButton}
             >
-              Test zurücksetzen
+              {lang("reset-test")}
             </button>
           </>
         ) : (
@@ -133,7 +130,7 @@ const Home: NextPage = () => {
             <div className={styles.persons}>
               {getPersons().map((p) => (
                 <div key={p.name}>
-                  {p.name} (Startdruck: {p.druck.start} bar)
+                  {p.name} ({lang("startdruck")}: {p.druck.start} bar)
                   <br />
                 </div>
               ))}
@@ -144,7 +141,7 @@ const Home: NextPage = () => {
                 disabled={getPersons().length === 0}
                 className={styles.startTestButton}
               >
-                Test starten
+                {lang("start-test")}
               </button>
             )}
           </>
@@ -152,7 +149,7 @@ const Home: NextPage = () => {
         <div className={styles.footer}>
           <div className={styles.moreToolsLink}>
             <a href="https://thw.codelam.de" target="_blank" rel="noreferrer">
-              Mehr THW Tools
+              {lang("more-thw-tools")}
             </a>
           </div>
           <div>©2022 Malte Sehmer</div>

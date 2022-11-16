@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Person } from "../models/Person";
 import styles from "../styles/CreatePersonForm.module.css";
+import { lang } from "../utils/language/language";
 import Input from "./Input";
 import SelectMenuInput from "./SelectMenuInput";
 
@@ -25,7 +26,7 @@ export default function CreatePersonForm({
         value={name}
         setValue={setName}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
+        placeholder={lang("name")}
         items={allNames}
       />
       <Input
@@ -38,15 +39,13 @@ export default function CreatePersonForm({
               : undefined
           );
         }}
-        placeholder="Startdruck"
+        placeholder={lang("startdruck")}
         error={startDruckError}
       />
       <button
         onClick={() => {
           if (!isStartDruckSet || startDruck <= 0 || startDruck > 450) {
-            setStartDruckError(
-              "Der Startdruck muss zwischen 1 und 450 bar liegen."
-            );
+            setStartDruckError(lang("startdruck-error-range"));
             setStartDruck(undefined);
             return;
           }
@@ -61,7 +60,7 @@ export default function CreatePersonForm({
         disabled={name.length == 0 || startDruck === undefined}
         className={styles.addButton}
       >
-        Hinzufügen
+        {lang("add")}
       </button>
     </div>
   );

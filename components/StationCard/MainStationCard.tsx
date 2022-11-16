@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Station } from "../../models/Station";
 import styles from "../../styles/StationView.module.css";
+import { lang } from "../../utils/language/language";
 import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
 
 export type MainStationCardProps = {
@@ -19,11 +20,11 @@ export default function MainStationCard({
   return (
     <div className={styles.card}>
       <h2>
-        Station: {station.name} ({stationIndex + 1}):
+        {lang("station")}: {station.name} ({stationIndex + 1}):
       </h2>
       <p>{station.description}</p>
       <div className={seconds <= 0 ? styles.timeover : ""}>
-        Verbleibende Zeit: {formatSecondsToMinutesAndSeconds(seconds)}
+        {lang("remaining-time")}: {formatSecondsToMinutesAndSeconds(seconds)}
       </div>
 
       <div
@@ -32,13 +33,15 @@ export default function MainStationCard({
         })}
       >
         {seconds > -15 && (
-          <button onClick={() => clickNextStation(true)}>Geschafft</button>
+          <button onClick={() => clickNextStation(true)}>
+            {lang("passed")}
+          </button>
         )}
         <button
           className={styles.secondaryButton}
           onClick={() => clickNextStation(false)}
         >
-          Nicht geschafft
+          {lang("not-passed")}
         </button>
       </div>
     </div>

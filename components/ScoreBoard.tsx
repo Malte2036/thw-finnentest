@@ -3,6 +3,7 @@ import { allStations, Station } from "../models/Station";
 import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
 import { useEffect } from "react";
 import { ScoreBoardData } from "../models/ScoreBoardData";
+import { lang } from "../utils/language/language";
 
 export type StationTime = {
   station: Station;
@@ -31,20 +32,20 @@ export default function ScoreBoard({
   return (
     <div>
       <h2>{scoreBoardData.person.name}</h2>
-      Startdruck: {scoreBoardData.person.druck.start} bar
+      {lang("startdruck")}: {scoreBoardData.person.druck.start} bar
       <br />
-      Enddruck:{" "}
+      {lang("enddruck")}:{" "}
       {scoreBoardData.person.druck.end !== undefined
         ? `${scoreBoardData.person.druck.end} bar`
         : ""}
       <br />
-      Gesamtverbrauch:{" "}
+      {lang("total-consumption")}:{" "}
       {scoreBoardData.person.druck.end !== undefined &&
       sumTimeSeconds !== undefined
         ? `${calcLPerMin(scoreBoardData.person, sumTimeSeconds!)} l/min`
         : ""}
       <br />
-      Gesamtzeit:{" "}
+      {lang("total-time")}:{" "}
       {sumTimeSeconds !== undefined
         ? formatSecondsToMinutesAndSeconds(sumTimeSeconds)
         : ""}
@@ -57,7 +58,7 @@ export default function ScoreBoard({
             key={s.station.name}
             className={s.passed ? "" : styles.notPassed}
           >
-            {!s.passed && "[nicht bestanden]"} {s.station.name} (
+            {!s.passed && `[${lang("not-passed")}]`} {s.station.name} (
             {(allStations
               .map((allS, index) => ({ index, station: allS }))
               .find((allS) => allS.station.name === s.station.name)?.index ??
