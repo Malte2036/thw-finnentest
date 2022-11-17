@@ -9,8 +9,9 @@ const withPWA = require("next-pwa")({
 const nextConfig = withPWA({
   reactStrictMode: true,
   i18n: {
-    locales: ["de"],
+    locales: ["de", "en"],
     defaultLocale: "de",
+    localeDetection: false,
   },
 });
 

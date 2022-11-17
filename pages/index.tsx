@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import CreatePersonForm from "../components/CreatePersonForm";
 import StationView, { StationStatus } from "../components/StationView";
@@ -9,7 +10,7 @@ import { ScoreBoardData } from "../models/ScoreBoardData";
 
 import thwLogo from "../public/THW.svg";
 import styles from "../styles/Home.module.css";
-import { lang } from "../utils/language/language";
+import { lang, setLanguageLocale } from "../utils/language/language";
 import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
@@ -19,6 +20,12 @@ import {
 } from "../utils/save";
 
 const Home: NextPage = () => {
+  const { locale } = useRouter();
+
+  useEffect(() => {
+    setLanguageLocale(locale);
+  }, [locale]);
+
   const [started, setStarted] = useState<boolean>(false);
 
   const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
