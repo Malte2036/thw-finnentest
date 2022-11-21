@@ -2,21 +2,21 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import CreatePersonForm from "../components/CreatePersonForm";
-import StationView, { StationStatus } from "../components/StationView";
-import { Person, SimplePerson } from "../models/Person";
-import { ScoreBoardData } from "../models/ScoreBoardData";
+import CreatePersonForm from "@/components/CreatePersonForm";
+import StationView, { StationStatus } from "@/components/StationView";
+import { Person, SimplePerson } from "@/models/Person";
+import { ScoreBoardData } from "@/models/ScoreBoardData";
 
-import thwLogo from "../public/THW.svg";
-import styles from "../styles/Home.module.css";
-import { lang } from "../utils/language/language";
+import thwLogo from "@/public/THW.svg";
+import styles from "@/styles/Home.module.css";
+import { lang } from "@/utils/language/language";
 import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
   saveSimplePersonToStorage,
   saveScoreBoardDataToStorage,
   getSimplePersonFromStorage,
-} from "../utils/save";
+} from "@/utils/save";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);

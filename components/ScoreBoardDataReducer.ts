@@ -1,6 +1,6 @@
-import { ScoreBoardData } from "../models/ScoreBoardData";
-import { allStations } from "../models/Station";
-import { milisecondsToSeconds } from "../utils/utils";
+import { ScoreBoardData } from "@/models/ScoreBoardData";
+import { allStations } from "@/models/Station";
+import { milisecondsToSeconds } from "@/utils/utils";
 import { StationTime } from "./ScoreBoard";
 import { StationStatus } from "./StationView";
 

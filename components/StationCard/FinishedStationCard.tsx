@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styles from "../../styles/StationView.module.css";
-import { lang } from "../../utils/language/language";
+import styles from "@/styles/StationView.module.css";
+import { lang } from "@/utils/language/language";
 import Input from "../Input";
 
 export type FinishedStationCardProps = {

@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import { Station } from "../../models/Station";
-import styles from "../../styles/StationView.module.css";
-import { lang } from "../../utils/language/language";
-import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
+import { Station } from "@/models/Station";
+import styles from "@/styles/StationView.module.css";
+import { lang } from "@/utils/language/language";
+import { formatSecondsToMinutesAndSeconds } from "@/utils/utils";
 
 export type MainStationCardProps = {
   station: Station;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Person } from "../models/Person";
-import styles from "../styles/CreatePersonForm.module.css";
-import { lang } from "../utils/language/language";
+import { Person } from "@/models/Person";
+import styles from "@/styles/CreatePersonForm.module.css";
+import { lang } from "@/utils/language/language";
 import Input from "./Input";
 import SelectMenuInput from "./SelectMenuInput";
 

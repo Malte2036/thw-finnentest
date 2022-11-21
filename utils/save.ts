@@ -1,5 +1,5 @@
-import { SimplePerson } from "../models/Person";
-import { ScoreBoardData } from "../models/ScoreBoardData";
+import { SimplePerson } from "@/models/Person";
+import { ScoreBoardData } from "@/models/ScoreBoardData";
 import { db } from "./db";
 import { milisecondsToSeconds, secondsToHours } from "./utils";
 

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
-import { Person } from "../../models/Person";
-import { calcLPerMin } from "../../utils/utils";
+import { Person } from "@/models/Person";
+import { calcLPerMin } from "@/utils/utils";
 
 describe("utils.calcLPerMin", () => {
   it("", () => {

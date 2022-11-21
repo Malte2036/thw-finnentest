@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import CreatePersonForm from "../../components/CreatePersonForm";
+import CreatePersonForm from "@/components/CreatePersonForm";
 
 describe("CreatePersonForm", () => {
   it("renders nameInputField and startdruckInputField", () => {

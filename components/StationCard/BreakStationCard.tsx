@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import { allStations } from "../../models/Station";
-import styles from "../../styles/StationView.module.css";
-import { lang } from "../../utils/language/language";
-import { formatSecondsToMinutesAndSeconds } from "../../utils/utils";
+import { allStations } from "@/models/Station";
+import styles from "@/styles/StationView.module.css";
+import { lang } from "@/utils/language/language";
+import { formatSecondsToMinutesAndSeconds } from "@/utils/utils";
 
 export type BreakStationCardProps = {
   seconds: number;

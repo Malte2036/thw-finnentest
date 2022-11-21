@@ -1,4 +1,4 @@
-import { Person } from "../models/Person";
+import { Person } from "@/models/Person";
 
 function padTo2Digits(num: number) {
   return num.toFixed(0).toString().padStart(2, "0");

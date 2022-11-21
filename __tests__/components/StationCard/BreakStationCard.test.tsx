@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import BreakStationCard from "../../../components/StationCard/BreakStationCard";
+import BreakStationCard from "@/components/StationCard/BreakStationCard";
 
 describe("BreakStationCard", () => {
   it("renders nextStationText and nextStationButton", () => {

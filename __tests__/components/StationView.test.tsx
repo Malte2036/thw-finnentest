@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import StationView, { StationStatus } from "../../components/StationView";
-import { ScoreBoardData } from "../../models/ScoreBoardData";
+import StationView, { StationStatus } from "@/components/StationView";
+import { ScoreBoardData } from "@/models/ScoreBoardData";
 
 const mockScoreBoardData: ScoreBoardData = {
   name: "Test",
@@ -14,6 +14,7 @@ const mockScoreBoardData: ScoreBoardData = {
   },
   endStationTime: undefined,
   endTimestamp: undefined,
+  sumTime: undefined,
   finished: false,
   startTimestamp: undefined,
   stationIndex: 0,

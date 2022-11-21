@@ -1,9 +1,9 @@
-import styles from "../styles/ScoreBoard.module.css";
-import { allStations, Station } from "../models/Station";
-import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "../utils/utils";
+import styles from "@/styles/ScoreBoard.module.css";
+import { allStations, Station } from "@/models/Station";
+import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "@/utils/utils";
 import { useEffect } from "react";
-import { ScoreBoardData } from "../models/ScoreBoardData";
-import { lang } from "../utils/language/language";
+import { ScoreBoardData } from "@/models/ScoreBoardData";
+import { lang } from "@/utils/language/language";
 
 export type StationTime = {
   station: Station;
