@@ -1,5 +1,6 @@
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 import { allStations } from "@/models/Station";
+import { StatisticsData } from "@/pages/api/statistics/finished";
 import { milisecondsToSeconds } from "@/utils/utils";
 import { StationTime } from "./ScoreBoard";
 import { StationStatus } from "./StationView";
@@ -45,11 +46,23 @@ export function scoreBoardDataReducer(
         ],
       };
     case ScoreBoardDataActionKind.SET_END_DRUCK:
+      const endDruck = action.payload;
+
+      fetch("api/statistics/finished", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          endDruck: endDruck,
+          startDruck: state.person.druck.start,
+          sumTime: state.sumTime,
+        } as StatisticsData),
+      });
+
       return {
         ...state,
         person: {
           ...state.person,
-          druck: { ...state.person.druck, end: action.payload },
+          druck: { ...state.person.druck, end: endDruck },
         },
       };
     case ScoreBoardDataActionKind.SET_END_STATION_TIME:
