@@ -1,0 +1,13 @@
+.footer {
+    color: var(--secondary);
+    position: absolute;
+    bottom: 1rem;
+  
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .copyrightName{
+    color: var(--secondary);
+    text-decoration: none;
+  }

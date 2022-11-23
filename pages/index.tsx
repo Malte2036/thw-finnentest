@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import CreatePersonForm from "@/components/CreatePersonForm";
-import StationView, { StationStatus } from "@/components/StationView";
+import { StationStatus } from "@/components/StationView";
 import { Person, SimplePerson } from "@/models/Person";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 
@@ -14,9 +12,12 @@ import {
   getScoreBoardDatasFromStorage,
   removeScoreBoardDatasFromStorage,
   saveSimplePersonToStorage,
-  saveScoreBoardDataToStorage,
   getSimplePersonFromStorage,
 } from "@/utils/save";
+import MainStartedView from "@/components/MainStartedView";
+import MainNotStartedView from "@/components/MainNotStartedView";
+import Head from "next/head";
+import Footer from "@/components/Footer";
 
 const Home: NextPage = () => {
   const [started, setStarted] = useState<boolean>(false);
@@ -100,70 +101,19 @@ const Home: NextPage = () => {
         )}
 
         {started ? (
-          <>
-            <div className={styles.stationViewsContainer}>
-              {scoreBoardDatas.map((data) => (
-                <StationView
-                  key={data.person.name}
-                  scoreBoardData={data}
-                  save={(scoreBoardData: ScoreBoardData) => {
-                    saveScoreBoardDataToStorage(scoreBoardData);
-                  }}
-                />
-              ))}
-            </div>
-            <button
-              onClick={() =>
-                window.confirm(lang("reset-test-confirmation")) && resetTest()
-              }
-              className={styles.resetTestButton}
-            >
-              {lang("reset-test")}
-            </button>
-          </>
+          <MainStartedView
+            scoreBoardDatas={scoreBoardDatas}
+            resetTest={resetTest}
+          />
         ) : (
-          <>
-            <CreatePersonForm
-              addPerson={addPerson}
-              allNames={allSavedSimplePersons.map((p) => p.name)}
-            />
-            <div className={styles.persons}>
-              {getPersons().map((p) => (
-                <div key={p.name}>
-                  {p.name} ({lang("startdruck")}: {p.druck.start} bar)
-                  <br />
-                </div>
-              ))}
-            </div>
-            {scoreBoardDatas.length > 0 && (
-              <button
-                onClick={() => setStarted(true)}
-                disabled={getPersons().length === 0}
-                className={styles.startTestButton}
-              >
-                {lang("start-test")}
-              </button>
-            )}
-          </>
+          <MainNotStartedView
+            getPersons={getPersons}
+            addPerson={addPerson}
+            allSavedSimplePersons={allSavedSimplePersons}
+            setStarted={setStarted}
+          />
         )}
-        <div className={styles.footer}>
-          <div className={styles.moreToolsLink}>
-            <a href="https://thw.codelam.de" target="_blank" rel="noreferrer">
-              {lang("more-thw-tools")}
-            </a>
-          </div>
-          <div>
-            <a
-              className={styles.copyrightName}
-              href="https://github.com/Malte2036/thw-finnentest/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ©2022 Malte Sehmer
-            </a>
-          </div>
-        </div>
-        <div className={styles.githubIconContainer}></div>
+        <Footer />
       </main>
     </div>
   );
