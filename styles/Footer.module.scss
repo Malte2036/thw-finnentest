@@ -1,0 +1,19 @@
+@import "./variables.scss";
+
+.footer {
+  color: $secondary;
+  position: absolute;
+  bottom: 1rem;
+
+  display: flex;
+  gap: 1rem;
+}
+
+.copyrightName {
+  color: $secondary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

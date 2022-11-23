@@ -1,5 +1,5 @@
 import { ScoreBoardData } from "@/models/ScoreBoardData";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.scss";
 import { lang } from "@/utils/language/language";
 import { saveScoreBoardDataToStorage } from "@/utils/save";
 import StationView from "./StationView";

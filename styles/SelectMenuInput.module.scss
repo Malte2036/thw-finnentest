@@ -1,0 +1,29 @@
+@import "./variables.scss";
+
+.selectItems {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 4px;
+
+  min-width: 4rem;
+}
+
+.item {
+  cursor: pointer;
+
+  background: white;
+  border: 1px solid $accent;
+  padding: 4px;
+
+  &:hover {
+    border: 2px solid $accent;
+    padding: 3px;
+  }
+
+  &:last-child {
+    border-radius: 0 0 $border-radius $border-radius;
+  }
+}

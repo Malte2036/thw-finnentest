@@ -6,7 +6,7 @@ import { Person, SimplePerson } from "@/models/Person";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 
 import thwLogo from "@/public/THW.svg";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.scss";
 import { lang } from "@/utils/language/language";
 import {
   getScoreBoardDatasFromStorage,

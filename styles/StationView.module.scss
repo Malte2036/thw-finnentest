@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .mainContainer {
   max-width: 350px;
   display: flex;
@@ -10,8 +12,8 @@
   text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 3px solid var(--accent);
-  border-radius: var(--border-radius);
+  border: 3px solid $accent;
+  border-radius: $border-radius;
 
   display: flex;
   flex-direction: column;
@@ -22,7 +24,7 @@
 }
 
 .timeover {
-  color: var(--warning);
+  color: $warning;
 }
 
 .endDruckContainer {
@@ -40,9 +42,9 @@
 }
 
 .secondaryButton {
-  background: var(--primary);
-  color: var(--accent);
-  border-color: var(--accent);
+  background: $primary;
+  color: $accent;
+  border-color: $accent;
 }
 
 .submitButton {

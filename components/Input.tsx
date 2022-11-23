@@ -1,4 +1,4 @@
-import styles from "@/styles/Input.module.css";
+import styles from "@/styles/Input.module.scss";
 
 export type InputProps<T> = {
   value: T;

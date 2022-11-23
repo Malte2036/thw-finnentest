@@ -1,5 +1,5 @@
 import { Person, SimplePerson } from "@/models/Person";
-import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.scss";
 import { lang } from "@/utils/language/language";
 import CreatePersonForm from "./CreatePersonForm";
 

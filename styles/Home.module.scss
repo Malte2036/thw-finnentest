@@ -1,3 +1,6 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
 .container {
   padding: 0 2rem;
 }
@@ -21,12 +24,11 @@
   font-size: 4rem;
 }
 
-
 .description {
   max-width: 60rem;
 }
 
-@media (min-width: 1025px) {
+@include desktop {
   .description {
     font-size: 1.5rem;
   }
@@ -44,9 +46,9 @@
 .resetTestButton {
   width: 6rem;
   margin-top: 2rem;
-  background: var(--primary);
-  color: var(--accent);
-  border-color: var(--accent);
+  background: $primary;
+  color: $accent;
+  border-color: $accent;
 }
 
 .checkBoxContainer {

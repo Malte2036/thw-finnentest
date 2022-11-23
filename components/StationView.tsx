@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import styles from "@/styles/StationView.module.css";
+import styles from "@/styles/StationView.module.scss";
 import BreakStationCard from "./StationCard/BreakStationCard";
 import ScoreBoard, { StationTime } from "./ScoreBoard";
 import MainStationCard from "./StationCard/MainStationCard";

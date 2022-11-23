@@ -1,0 +1,8 @@
+@import "./variables.scss";
+
+.errorContainer {
+  position: absolute;
+  color: $warning;
+  font-size: 0.75rem;
+  margin-left: 0.1rem;
+}

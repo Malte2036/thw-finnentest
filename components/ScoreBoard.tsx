@@ -1,4 +1,4 @@
-import styles from "@/styles/ScoreBoard.module.css";
+import styles from "@/styles/ScoreBoard.module.scss";
 import { allStations, Station } from "@/models/Station";
 import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "@/utils/utils";
 import { useEffect } from "react";

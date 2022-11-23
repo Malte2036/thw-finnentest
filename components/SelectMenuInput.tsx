@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import styles from "@/styles/SelectMenuInput.module.css";
+import styles from "@/styles/SelectMenuInput.module.scss";
 import Input, { InputProps } from "./Input";
 
 type SelectMenuInputProps<T> = InputProps<T> & {

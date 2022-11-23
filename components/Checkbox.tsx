@@ -1,4 +1,4 @@
-import styles from "@/styles/Checkbox.module.css";
+import styles from "@/styles/Checkbox.module.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export type CheckboxProps = {

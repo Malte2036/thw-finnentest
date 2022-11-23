@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "@/styles/StationView.module.css";
+import styles from "@/styles/StationView.module.scss";
 import { lang } from "@/utils/language/language";
 import Input from "../Input";
 
