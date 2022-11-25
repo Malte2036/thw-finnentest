@@ -1,21 +1,21 @@
 import { Person, SimplePerson } from "@/models/Person";
-import styles from "@/styles/Home.module.scss";
 import { lang } from "@/utils/language/language";
-import CreatePersonForm from "./CreatePersonForm";
+import CreatePersonForm from "../CreatePersonForm";
+import styles from "@/styles/MainAddPersonsView.module.scss";
 
-export type MainNotStartedViewProps = {
+export type MainAddPersonsViewProps = {
   getPersons: () => Person[];
   addPerson: (person: Person) => void;
   allSavedSimplePersons: SimplePerson[];
-  setStarted: (started: boolean) => void;
+  setStarted: () => void;
 };
 
-export default function MainNotStartedView({
+export default function MainAddPersonsView({
   getPersons,
   addPerson,
   allSavedSimplePersons,
   setStarted,
-}: MainNotStartedViewProps) {
+}: MainAddPersonsViewProps) {
   return (
     <>
       <CreatePersonForm
@@ -32,7 +32,7 @@ export default function MainNotStartedView({
       </div>
       {getPersons().length > 0 && (
         <button
-          onClick={() => setStarted(true)}
+          onClick={() => setStarted()}
           disabled={getPersons().length === 0}
           className={styles.startTestButton}
         >

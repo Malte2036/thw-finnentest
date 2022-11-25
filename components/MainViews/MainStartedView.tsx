@@ -2,7 +2,7 @@ import { ScoreBoardData } from "@/models/ScoreBoardData";
 import styles from "@/styles/Home.module.scss";
 import { lang } from "@/utils/language/language";
 import { saveScoreBoardDataToStorage } from "@/utils/save";
-import StationView from "./StationView";
+import StationView from "../StationView";
 
 export type MainStartedViewProps = {
   scoreBoardDatas: ScoreBoardData[];

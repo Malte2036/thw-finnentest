@@ -22,25 +22,8 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
-}
 
-.description {
-  max-width: 60rem;
-}
-
-@include desktop {
-  .description {
-    font-size: 1.5rem;
-  }
-}
-
-.title,
-.description {
   text-align: center;
-}
-
-.startTestButton {
-  width: 100px;
 }
 
 .resetTestButton {
@@ -62,8 +45,4 @@
   gap: 10px;
   width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.persons {
-  margin-bottom: 1rem;
 }

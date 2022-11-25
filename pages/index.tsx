@@ -14,13 +14,20 @@ import {
   saveSimplePersonToStorage,
   getSimplePersonFromStorage,
 } from "@/utils/save";
-import MainStartedView from "@/components/MainStartedView";
-import MainNotStartedView from "@/components/MainNotStartedView";
+import MainStartedView from "@/components/MainViews/MainStartedView";
 import Head from "next/head";
 import Footer from "@/components/Footer";
+import MainWelcomeView from "@/components/MainViews/MainWelcomeView";
+import MainAddPersonsView from "@/components/MainViews/MainAddPersonsView";
+
+export enum Status {
+  WELCOME,
+  ADD_PERSONS,
+  STARTED,
+}
 
 const Home: NextPage = () => {
-  const [started, setStarted] = useState<boolean>(false);
+  const [status, setStatus] = useState<Status>(Status.WELCOME);
 
   const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
 
@@ -34,7 +41,7 @@ const Home: NextPage = () => {
 
   function resetTest() {
     removeScoreBoardDatasFromStorage();
-    setStarted(false);
+    setStatus(Status.WELCOME);
     setScoreBoardDatas([]);
   }
 
@@ -46,7 +53,7 @@ const Home: NextPage = () => {
     getScoreBoardDatasFromStorage().then((savedScoreBoardProps) => {
       if (savedScoreBoardProps.length !== 0) {
         setScoreBoardDatas(savedScoreBoardProps);
-        setStarted(true);
+        setStatus(Status.STARTED);
       }
     });
 
@@ -75,6 +82,35 @@ const Home: NextPage = () => {
     updateAllSavedSimplePersons();
   };
 
+  function getMainView() {
+    switch (status) {
+      case Status.WELCOME:
+        return (
+          <MainWelcomeView
+            startNextView={() => setStatus(Status.ADD_PERSONS)}
+          />
+        );
+      case Status.ADD_PERSONS:
+        return (
+          <MainAddPersonsView
+            addPerson={addPerson}
+            allSavedSimplePersons={allSavedSimplePersons}
+            getPersons={getPersons}
+            setStarted={() => setStatus(Status.STARTED)}
+          />
+        );
+      case Status.STARTED:
+        return (
+          <MainStartedView
+            scoreBoardDatas={scoreBoardDatas}
+            resetTest={resetTest}
+          />
+        );
+      default:
+        return `Error: Status ${status} not found!`;
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -86,33 +122,8 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Image src={thwLogo} width={125} height={125} alt="THW Logo" />
         <h1 className={styles.title}>{lang("app-title")}</h1>
-        {!started && (
-          <p className={styles.description}>
-            {lang("app-description")} {lang("app-description-more")}{" "}
-            <a
-              href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
-              target="_blank"
-              rel="noreferrer"
-            >
-              hier
-            </a>
-            .
-          </p>
-        )}
+        {getMainView()}
 
-        {started ? (
-          <MainStartedView
-            scoreBoardDatas={scoreBoardDatas}
-            resetTest={resetTest}
-          />
-        ) : (
-          <MainNotStartedView
-            getPersons={getPersons}
-            addPerson={addPerson}
-            allSavedSimplePersons={allSavedSimplePersons}
-            setStarted={setStarted}
-          />
-        )}
         <Footer />
       </main>
     </div>
