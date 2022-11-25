@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from "./SelectMenuInput.module.scss";
 import Input, { InputProps } from "../Input/Input";
 
@@ -20,6 +20,17 @@ export default function SelectMenuInput({
   onBlur,
 }: SelectMenuInputProps<any>) {
   const [open, setOpen] = useState<boolean>(false);
+  const [visibleItems, setVisibleItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    setVisibleItems(
+      items
+        .map((item: any) => String(item))
+        .filter((item: string) =>
+          item.toLowerCase().startsWith(value.toLowerCase())
+        )
+    );
+  }, [items, value]);
 
   return (
     <div
@@ -30,26 +41,22 @@ export default function SelectMenuInput({
         }, 250);
       }}
     >
-      <Input
-        value={value}
-        type={type}
-        label={label}
-        placeholder={placeholder}
-        error={error}
-        onChange={onChange}
-        onFocus={(e: any) => {
-          setOpen(!open);
-          if (onFocus) onFocus(e);
-        }}
-      />
-      {open && (
-        <div className={styles.selectItems}>
-          {items
-            .map((item: any) => String(item))
-            .filter((item: string) =>
-              item.toLowerCase().startsWith(value.toLowerCase())
-            )
-            .map((item: string) => (
+      <div className={styles.selectMenuContainer}>
+        <Input
+          value={value}
+          type={type}
+          label={label}
+          placeholder={placeholder}
+          error={error}
+          onChange={onChange}
+          onFocus={(e: any) => {
+            setOpen(!open);
+            if (onFocus) onFocus(e);
+          }}
+        />
+        {open && visibleItems.length > 0 ? (
+          <div className={styles.selectItems}>
+            {visibleItems.map((item: string) => (
               <div
                 key={item}
                 className={styles.item}
@@ -62,8 +69,9 @@ export default function SelectMenuInput({
                 {item}
               </div>
             ))}
-        </div>
-      )}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
