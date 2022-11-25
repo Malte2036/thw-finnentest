@@ -1,12 +1,11 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { StationStatus } from "@/components/StationView";
 import { Person, SimplePerson } from "@/models/Person";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 
 import thwLogo from "@/public/THW.svg";
-import styles from "@/styles/Home.module.scss";
+import styles from "@/components/Home.module.scss";
 import { lang } from "@/utils/language/language";
 import {
   getScoreBoardDatasFromStorage,
@@ -16,9 +15,10 @@ import {
 } from "@/utils/save";
 import MainStartedView from "@/components/MainViews/MainStartedView";
 import Head from "next/head";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import MainWelcomeView from "@/components/MainViews/MainWelcomeView";
 import MainAddPersonsView from "@/components/MainViews/MainAddPersonsView";
+import { StationStatus } from "@/components/StationCard/StationView";
 
 export enum Status {
   WELCOME,

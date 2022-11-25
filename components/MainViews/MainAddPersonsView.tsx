@@ -1,7 +1,7 @@
 import { Person, SimplePerson } from "@/models/Person";
 import { lang } from "@/utils/language/language";
-import CreatePersonForm from "../CreatePersonForm";
-import styles from "@/styles/MainAddPersonsView.module.scss";
+import CreatePersonForm from "@/components/CreatePersonForm/CreatePersonForm";
+import styles from "./MainAddPersonsView.module.scss";
 
 export type MainAddPersonsViewProps = {
   getPersons: () => Person[];

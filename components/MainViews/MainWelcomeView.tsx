@@ -1,5 +1,5 @@
 import { lang } from "@/utils/language/language";
-import styles from "@/styles/MainWelcomeView.module.scss";
+import styles from "./MainWelcomeView.module.scss";
 
 export type MainWelcomeViewProps = {
   startNextView: () => void;

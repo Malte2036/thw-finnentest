@@ -1,5 +1,5 @@
-import { StationTime } from "@/components/ScoreBoard";
-import { StationStatus } from "@/components/StationView";
+import { StationTime } from "@/components/ScoreBoard/ScoreBoard";
+import { StationStatus } from "@/components/StationCard/StationView";
 import { Person } from "./Person";
 
 export type ScoreBoardData = {

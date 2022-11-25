@@ -2,8 +2,8 @@ import { ScoreBoardData } from "@/models/ScoreBoardData";
 import { allStations } from "@/models/Station";
 import { StatisticsData } from "@/pages/api/statistics/finished";
 import { milisecondsToSeconds } from "@/utils/utils";
+import { StationStatus } from "../StationCard/StationView";
 import { StationTime } from "./ScoreBoard";
-import { StationStatus } from "./StationView";
 
 export enum ScoreBoardDataActionKind {
   INCREMENT_STATION_INDEX,

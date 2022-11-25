@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Person } from "@/models/Person";
-import styles from "@/styles/CreatePersonForm.module.scss";
+import styles from "./CreatePersonForm.module.scss";
 import { lang } from "@/utils/language/language";
-import Input from "./Input";
-import SelectMenuInput from "./SelectMenuInput";
+import Input from "../Input/Input";
+import SelectMenuInput from "../SelectMenuInput/SelectMenuInput";
 
 export type CreatePersonFormProps = {
   addPerson: (person: Person) => void;

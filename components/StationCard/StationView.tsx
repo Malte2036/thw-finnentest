@@ -1,16 +1,16 @@
 import { useEffect, useReducer, useState } from "react";
-import styles from "@/styles/StationView.module.scss";
-import BreakStationCard from "./StationCard/BreakStationCard";
-import ScoreBoard, { StationTime } from "./ScoreBoard";
-import MainStationCard from "./StationCard/MainStationCard";
-import FinishedStationCard from "./StationCard/FinishedStationCard";
+import styles from "./StationView.module.scss";
+import BreakStationCard from "../StationCard/BreakStationCard";
+import ScoreBoard, { StationTime } from "../ScoreBoard/ScoreBoard";
+import MainStationCard from "../StationCard/MainStationCard";
+import FinishedStationCard from "../StationCard/FinishedStationCard";
 import { allStations, Station } from "@/models/Station";
 import { milisecondsToSeconds } from "@/utils/utils";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 import {
   ScoreBoardDataActionKind,
   scoreBoardDataReducer,
-} from "./ScoreBoardDataReducer";
+} from "@/components/ScoreBoard/ScoreBoardDataReducer";
 
 export enum StationStatus {
   BREAK,
