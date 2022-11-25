@@ -61,7 +61,6 @@ export default function CreatePersonForm({
           setStartDruckError(undefined);
         }}
         disabled={name.length == 0 || startDruck === undefined}
-        className={styles.addButton}
       >
         {lang("add-person")}
       </button>
