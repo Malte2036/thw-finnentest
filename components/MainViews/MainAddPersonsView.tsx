@@ -17,28 +17,33 @@ export default function MainAddPersonsView({
   setStarted,
 }: MainAddPersonsViewProps) {
   return (
-    <>
+    <div className={styles.container}>
       <CreatePersonForm
         addPerson={addPerson}
         allNames={allSavedSimplePersons.map((p) => p.name)}
       />
-      <div className={styles.persons}>
-        {getPersons().map((p) => (
-          <div key={p.name}>
-            {p.name} ({lang("startdruck")}: {p.druck.start} bar)
-            <br />
+      {getPersons().length > 0 ? (
+        <>
+          <hr className={styles.line} />
+          <div className={styles.personsContainer}>
+            <h2>{lang("persons")}:</h2>
+            <div className={styles.persons}>
+              {getPersons().map((p) => (
+                <div key={p.name}>
+                  &#8226; {p.name} ({lang("startdruck")}: {p.druck.start} bar)
+                  <br />
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setStarted()}
+              disabled={getPersons().length === 0}
+            >
+              {lang("start-test")}
+            </button>
           </div>
-        ))}
-      </div>
-      {getPersons().length > 0 && (
-        <button
-          onClick={() => setStarted()}
-          disabled={getPersons().length === 0}
-          className={styles.startTestButton}
-        >
-          {lang("start-test")}
-        </button>
-      )}
-    </>
+        </>
+      ) : null}
+    </div>
   );
 }

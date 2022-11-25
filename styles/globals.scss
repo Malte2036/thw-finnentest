@@ -48,6 +48,10 @@ h2 {
   color: $accent;
 }
 
+hr {
+  border-top: 1px solid $secondary;
+}
+
 *:focus {
   border-width: 4px;
   margin-left: 0;

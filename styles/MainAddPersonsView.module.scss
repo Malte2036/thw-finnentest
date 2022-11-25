@@ -1,9 +1,26 @@
 @import "./variables.scss";
 
-.persons {
-  margin-bottom: 1rem;
+.container {
+  width: 100%;
+  max-width: 350px;
+
+  h2 {
+    margin: 0;
+  }
 }
 
-.startTestButton {
-  width: 100px;
+.line {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.personsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+
+  .persons {
+    margin-bottom: 1rem;
+  }
 }

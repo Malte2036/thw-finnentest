@@ -41,7 +41,6 @@ export default function FinishedStationCard({
             setEndDruckCallback(endDruck ?? 0);
           }}
           disabled={endDruck === undefined}
-          className={styles.submitButton}
         >
           {lang("submit")}
         </button>
