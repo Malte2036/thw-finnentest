@@ -22,10 +22,12 @@ export default function CreatePersonForm({
 
   return (
     <div className={styles.form}>
+      <h2>{lang("add-person")}:</h2>
       <SelectMenuInput
         value={name}
         setValue={setName}
         onChange={(e) => setName(e.target.value)}
+        label={lang("name")}
         placeholder={lang("name")}
         items={allNames}
       />
@@ -39,6 +41,7 @@ export default function CreatePersonForm({
               : undefined
           );
         }}
+        label={lang("startdruck")}
         placeholder={lang("startdruck")}
         error={startDruckError}
       />
@@ -60,7 +63,7 @@ export default function CreatePersonForm({
         disabled={name.length == 0 || startDruck === undefined}
         className={styles.addButton}
       >
-        {lang("add")}
+        {lang("add-person")}
       </button>
     </div>
   );

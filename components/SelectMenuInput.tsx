@@ -12,6 +12,7 @@ export default function SelectMenuInput({
   setValue,
   value,
   type,
+  label,
   placeholder,
   error,
   onChange,
@@ -32,6 +33,7 @@ export default function SelectMenuInput({
       <Input
         value={value}
         type={type}
+        label={label}
         placeholder={placeholder}
         error={error}
         onChange={onChange}

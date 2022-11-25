@@ -14,7 +14,7 @@ export const DE: LanguageData = {
   "reset-test-confirmation": "Willst du wirklich den Test zurücksetzen?",
 
   submit: "Absenden",
-  add: "Hinzufügen",
+  "add-person": "Person hinzufügen",
 
   break: "Pause",
   finished: "Beendet",

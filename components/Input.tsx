@@ -3,6 +3,7 @@ import styles from "@/styles/Input.module.scss";
 export type InputProps<T> = {
   value: T;
   type?: string;
+  label?: string;
   placeholder?: string;
   error?: string;
   onChange: (e: any) => void;
@@ -13,6 +14,7 @@ export type InputProps<T> = {
 export default function Input({
   value,
   type = "string",
+  label,
   placeholder,
   error,
   onChange,
@@ -20,7 +22,8 @@ export default function Input({
   onBlur,
 }: InputProps<number | string>) {
   return (
-    <div>
+    <div className={styles.container}>
+      {label ? <label>{label}</label> : null}
       <input
         value={value}
         type={type}

@@ -15,7 +15,6 @@ export default function FinishedStationCard({
   return (
     <div className={styles.card}>
       <h2>{lang("finished")}</h2>
-      <label>{lang("enddruck")}:</label>
       <div className={styles.endDruckContainer}>
         <Input
           type={"number"}
@@ -27,7 +26,8 @@ export default function FinishedStationCard({
                 : undefined
             )
           }
-          placeholder="Enddruck"
+          label={lang("enddruck")}
+          placeholder={lang("enddruck")}
           error={endDruckError}
         />
         <button
