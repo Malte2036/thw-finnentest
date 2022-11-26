@@ -95,7 +95,7 @@ const Home: NextPage = () => {
           <MainAddPersonsView
             addPerson={addPerson}
             allSavedSimplePersons={allSavedSimplePersons}
-            getPersons={getPersons}
+            persons={getPersons()}
             setStarted={() => setStatus(Status.STARTED)}
           />
         );

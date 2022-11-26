@@ -4,14 +4,14 @@ import CreatePersonForm from "@/components/CreatePersonForm/CreatePersonForm";
 import styles from "./MainAddPersonsView.module.scss";
 
 export type MainAddPersonsViewProps = {
-  getPersons: () => Person[];
+  persons: Person[];
   addPerson: (person: Person) => void;
   allSavedSimplePersons: SimplePerson[];
   setStarted: () => void;
 };
 
 export default function MainAddPersonsView({
-  getPersons,
+  persons,
   addPerson,
   allSavedSimplePersons,
   setStarted,
@@ -22,22 +22,21 @@ export default function MainAddPersonsView({
         addPerson={addPerson}
         allNames={allSavedSimplePersons.map((p) => p.name)}
       />
-      {getPersons().length > 0 ? (
+      {persons.length > 0 ? (
         <>
           <hr className={styles.line} />
           <div className={styles.personsContainer}>
             <h2>{lang("persons")}:</h2>
-            <div className={styles.persons}>
-              {getPersons().map((p) => (
-                <div key={p.name}>
-                  &#8226; {p.name} ({lang("startdruck")}: {p.druck.start} bar)
-                  <br />
-                </div>
+            <ul className={styles.persons}>
+              {persons.map((p) => (
+                <li key={p.name}>
+                  {p.name} ({lang("startdruck")}: {p.druck.start} bar)
+                </li>
               ))}
-            </div>
+            </ul>
             <button
               onClick={() => setStarted()}
-              disabled={getPersons().length === 0}
+              disabled={persons.length === 0}
             >
               {lang("start-test")}
             </button>
