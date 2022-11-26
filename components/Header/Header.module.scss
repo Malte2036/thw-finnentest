@@ -4,7 +4,7 @@
 .header {
   margin-top: 2rem;
 
-  .headerContentContainer {
+  .headerLeftContentContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,6 +28,10 @@
   width: 100px;
 }
 
+.moreTHWToolsButton {
+  display: none;
+}
+
 @include not-desktop {
   .shrinkHeader {
     margin: 0;
@@ -49,26 +53,45 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
 
-      margin-left: 4px;
+      padding-right: 6px;
 
-      pointer-events: all;
-      cursor: pointer;
+      @include not-mobile {
+        .moreTHWToolsButton {
+          width: 8rem;
+          display: block;
 
-      .title {
-        font-size: 3rem;
+          cursor: pointer;
+
+          a {
+            color: $primary;
+            text-decoration: none;
+          }
+        }
       }
-      .thwLogo {
-        height: 3rem;
-        width: 3rem;
+
+      .headerLeftContentContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        margin-left: 4px;
+
+        pointer-events: all;
+        cursor: pointer;
+
+        .title {
+          font-size: 3rem;
+        }
+        .thwLogo {
+          height: 3rem;
+          width: 3rem;
+        }
       }
     }
 
     border-bottom: 1px solid $accent;
   }
-}
-
-.hideHeader {
-  visibility: hidden;
 }

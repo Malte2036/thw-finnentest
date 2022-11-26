@@ -18,12 +18,19 @@ export default function Header({ shrinkHeader }: HeaderProps) {
       })}
     >
       <div className={styles.headerContentContainer}>
-        <div className={styles.thwLogo} onClick={() => router.reload()}>
-          <Image src={thwLogo} alt="THW Logo" fill />
+        <div className={styles.headerLeftContentContainer}>
+          <div className={styles.thwLogo} onClick={() => router.reload()}>
+            <Image src={thwLogo} alt="THW Logo" fill />
+          </div>
+          <h1 className={styles.title} onClick={() => router.reload()}>
+            {lang("app-title")}
+          </h1>
         </div>
-        <h1 className={styles.title} onClick={() => router.reload()}>
-          {lang("app-title")}
-        </h1>
+        <button className={styles.moreTHWToolsButton}>
+          <a href="https://thw.codelam.de" target="_blank" rel="noreferrer">
+            {lang("more-thw-tools")}
+          </a>
+        </button>
       </div>
     </div>
   );
