@@ -1,0 +1,74 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.header {
+  margin-top: 2rem;
+
+  .headerContentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+  }
+
+  width: 100vw;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.thwLogo {
+  position: relative;
+  height: 100px;
+  width: 100px;
+}
+
+@include not-desktop {
+  .shrinkHeader {
+    margin: 0;
+    height: $shrink-header-height;
+
+    position: fixed;
+    top: 0;
+
+    background-color: white;
+
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 4px;
+
+    border-bottom: 1px solid var(--accent);
+
+    .headerContentContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+
+      margin-left: 4px;
+
+      pointer-events: all;
+      cursor: pointer;
+
+      .title {
+        font-size: 3rem;
+      }
+      .thwLogo {
+        height: 3rem;
+        width: 3rem;
+      }
+    }
+
+    border-bottom: 1px solid $accent;
+  }
+}
+
+.hideHeader {
+  visibility: hidden;
+}

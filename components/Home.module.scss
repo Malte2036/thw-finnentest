@@ -7,7 +7,8 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding-top: $shrink-header-height;
+  padding-bottom: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;

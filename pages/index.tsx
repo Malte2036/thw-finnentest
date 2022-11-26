@@ -19,6 +19,7 @@ import Footer from "@/components/Footer/Footer";
 import MainWelcomeView from "@/components/MainViews/MainWelcomeView";
 import MainAddPersonsView from "@/components/MainViews/MainAddPersonsView";
 import { StationStatus } from "@/components/StationCard/StationView";
+import Header from "@/components/Header/Header";
 
 export enum Status {
   WELCOME,
@@ -120,8 +121,7 @@ const Home: NextPage = () => {
         <meta name="description" content={lang("app-description")} />
       </Head>
       <main className={styles.main}>
-        <Image src={thwLogo} width={125} height={125} alt="THW Logo" />
-        <h1 className={styles.title}>{lang("app-title")}</h1>
+        <Header shrinkHeader={status !== Status.WELCOME} />
         {getMainView()}
 
         <Footer />

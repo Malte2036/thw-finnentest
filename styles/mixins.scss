@@ -3,3 +3,9 @@
     @content;
   }
 }
+
+@mixin not-desktop {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
