@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { Person, SimplePerson } from "@/models/Person";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 
-import thwLogo from "@/public/THW.svg";
-import styles from "@/components/Home.module.scss";
+import styles from "@/styles/MainPage.module.scss";
 import { lang } from "@/utils/language/language";
 import {
   getScoreBoardDatasFromStorage,
@@ -27,7 +26,7 @@ export enum Status {
   STARTED,
 }
 
-const Home: NextPage = () => {
+const MainPage: NextPage = () => {
   const [status, setStatus] = useState<Status>(Status.WELCOME);
 
   const [scoreBoardDatas, setScoreBoardDatas] = useState<ScoreBoardData[]>([]);
@@ -130,4 +129,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MainPage;

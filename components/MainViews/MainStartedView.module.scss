@@ -1,0 +1,16 @@
+@import "../../styles/variables.scss";
+
+.stationViewsContainer {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.resetTestButton {
+    width: 6rem;
+    margin-top: 2rem;
+    background: $primary;
+    color: $accent;
+    border-color: $accent;
+}

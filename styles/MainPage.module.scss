@@ -1,0 +1,18 @@
+@import "../styles/variables.scss";
+
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding-top: $shrink-header-height;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+}
