@@ -27,7 +27,7 @@ export default function Header({ shrinkHeader }: HeaderProps) {
           </h1>
         </div>
         <button className={styles.moreTHWToolsButton}>
-          <a href="https://thw.codelam.de" target="_blank" rel="noreferrer">
+          <a href="https://thw-tools.de" target="_blank" rel="noreferrer">
             {lang("more-thw-tools")}
           </a>
         </button>
