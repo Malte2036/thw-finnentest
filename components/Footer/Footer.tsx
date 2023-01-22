@@ -12,7 +12,7 @@ export default function Footer() {
       <div>
         <a
           className={styles.copyrightName}
-          href="https://thw-tools.de/impressum/"
+          href="https://thw-tools.de/impressum"
           target="_blank"
           rel="noreferrer"
         >
