@@ -12,11 +12,11 @@ export default function Footer() {
       <div>
         <a
           className={styles.copyrightName}
-          href="https://github.com/Malte2036/thw-finnentest/"
+          href="https://thw-tools.de/impressum/"
           target="_blank"
           rel="noreferrer"
         >
-          ©2022 Malte Sehmer
+          ©2023 Malte Sehmer
         </a>
       </div>
     </div>
