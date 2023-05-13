@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import thwLogo from "@/public/THW.svg";
+import logo from "@/public/icon-512x512.png";
 import styles from "./Header.module.scss";
 import Image from "next/image";
 import { lang } from "@/utils/language/language";
@@ -19,8 +19,8 @@ export default function Header({ shrinkHeader }: HeaderProps) {
     >
       <div className={styles.headerContentContainer}>
         <div className={styles.headerLeftContentContainer}>
-          <div className={styles.thwLogo} onClick={() => router.reload()}>
-            <Image src={thwLogo} alt="THW Logo" fill />
+          <div className={styles.logo} onClick={() => router.reload()}>
+            <Image src={logo} alt="Logo" fill />
           </div>
           <h1 className={styles.title} onClick={() => router.reload()}>
             {lang("app-title")}
