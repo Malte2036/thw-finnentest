@@ -34,6 +34,9 @@ export const DE: LanguageData = {
   enddruck: "Enddruck",
   "total-consumption": "Gesamtverbrauch",
   "total-time": "Gesamtzeit",
+  "start-time": "Startzeit",
+  "end-time": "Endzeit",
+  clock: "Uhr",
 
   "startdruck-error-range":
     "Der Startdruck muss zwischen 1 und 450 bar liegen.",

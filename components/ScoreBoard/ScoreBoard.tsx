@@ -1,6 +1,10 @@
 import styles from "./ScoreBoard.module.scss";
 import { allStations, Station } from "@/models/Station";
-import { calcLPerMin, formatSecondsToMinutesAndSeconds } from "@/utils/utils";
+import {
+  calcLPerMin,
+  formatSecondsToMinutesAndSeconds,
+  timestampToTimeString,
+} from "@/utils/utils";
 import { useEffect } from "react";
 import { ScoreBoardData } from "@/models/ScoreBoardData";
 import { lang } from "@/utils/language/language";
@@ -48,6 +52,20 @@ export default function ScoreBoard({
       {lang("total-time")}:{" "}
       {sumTimeSeconds !== undefined
         ? formatSecondsToMinutesAndSeconds(sumTimeSeconds)
+        : ""}{" "}
+      <br />
+      {lang("start-time")}:{" "}
+      {scoreBoardData.startTimestamp
+        ? `${timestampToTimeString(scoreBoardData.startTimestamp)}${lang(
+            "clock"
+          )}`
+        : ""}
+      <br />
+      {lang("end-time")}:{" "}
+      {scoreBoardData.endTimestamp
+        ? `${timestampToTimeString(scoreBoardData.endTimestamp * 1000)}${lang(
+            "clock"
+          )}`
         : ""}
       <br />
       <br />

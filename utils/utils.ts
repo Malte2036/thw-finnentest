@@ -16,6 +16,15 @@ export function formatSecondsToMinutesAndSeconds(totalSeconds: number) {
   )},${((totalSeconds % 1) * 10).toFixed(0)}s`;
 }
 
+export function timestampToTimeString(timestamp: number): string {
+  return new Date(timestamp).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
+
 export function calcLPerMin(person: Person, sumTimeSeconds: number) {
   const druckDiff = person.druck.start - person.druck.end!;
   const minutes = sumTimeSeconds / 60;
