@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 import Image from "next/image";
 import { lang } from "@/utils/language/language";
 import { useRouter } from "next/router";
+import Button from "../Button/Button";
 
 export type HeaderProps = {
   shrinkHeader: boolean;
@@ -26,14 +27,16 @@ export default function Header({ shrinkHeader }: HeaderProps) {
             {lang("app-title")}
           </h1>
         </div>
-        <button
+        <Button
+          type="primary"
           data-umami-event="Click More THW Tools"
+          onClick={() => undefined}
           className={styles.moreTHWToolsButton}
         >
           <a href="https://thw-tools.de" target="_blank" rel="noreferrer">
             {lang("more-thw-tools")}
           </a>
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -59,11 +59,7 @@
 
       @include not-mobile {
         .moreTHWToolsButton {
-          width: 8rem;
-          display: block;
-
-          cursor: pointer;
-
+          display: unset;
           a {
             color: $primary;
             text-decoration: none;

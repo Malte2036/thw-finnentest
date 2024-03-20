@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./StationView.module.scss";
 import { lang } from "@/utils/language/language";
 import Input from "../Input/Input";
+import Button from "../Button/Button";
 
 export type FinishedStationCardProps = {
   setEndDruckCallback: (druck: number) => void;
@@ -30,7 +31,8 @@ export default function FinishedStationCard({
           placeholder={lang("enddruck")}
           error={endDruckError}
         />
-        <button
+        <Button
+          type="primary"
           data-umami-event="Submit End Druck"
           onClick={() => {
             if (endDruck === undefined || endDruck <= 0 || endDruck > 450) {
@@ -44,7 +46,7 @@ export default function FinishedStationCard({
           disabled={endDruck === undefined}
         >
           {lang("submit")}
-        </button>
+        </Button>
       </div>
     </div>
   );

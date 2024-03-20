@@ -2,6 +2,7 @@ import { Person, SimplePerson } from "@/models/Person";
 import { lang } from "@/utils/language/language";
 import CreatePersonForm from "@/components/CreatePersonForm/CreatePersonForm";
 import styles from "./MainAddPersonsView.module.scss";
+import Button from "../Button/Button";
 
 export type MainAddPersonsViewProps = {
   persons: Person[];
@@ -34,13 +35,14 @@ export default function MainAddPersonsView({
                 </li>
               ))}
             </ul>
-            <button
+            <Button
+              type="primary"
               data-umami-event="Start Test"
               onClick={() => setStarted()}
               disabled={persons.length === 0}
             >
               {lang("start-test")}
-            </button>
+            </Button>
           </div>
         </>
       ) : null}

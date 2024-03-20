@@ -20,30 +20,6 @@ a {
   }
 }
 
-button {
-  width: 100%;
-  height: 2.5rem;
-  background: $accent;
-  color: $primary;
-  border-style: solid;
-  border-radius: $border-radius;
-  border-width: 1px;
-
-  &:hover {
-    border-width: 2px;
-    cursor: pointer;
-  }
-
-  &:disabled {
-    background: $primary;
-    color: $secondary;
-
-    &:disabled {
-      pointer-events: none;
-    }
-  }
-}
-
 h2 {
   color: $accent;
 }

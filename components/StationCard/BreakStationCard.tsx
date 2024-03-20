@@ -3,6 +3,7 @@ import { allStations } from "@/models/Station";
 import styles from "./StationView.module.scss";
 import { lang } from "@/utils/language/language";
 import { formatSecondsToMinutesAndSeconds } from "@/utils/utils";
+import Button from "../Button/Button";
 
 export type BreakStationCardProps = {
   seconds: number;
@@ -27,15 +28,13 @@ export default function BreakStationCard({
       {lang("remaining-break-time")}:{" "}
       {formatSecondsToMinutesAndSeconds(seconds)}
       <div className={styles.buttonsContainer}>
-        <button
+        <Button
+          type={seconds <= 0 ? "secondary" : "primary"}
           data-umami-event="Click Start Next Station"
           onClick={() => clickNextStation()}
-          className={classNames(styles.secondaryButton, {
-            [styles.timeover]: seconds <= 0,
-          })}
         >
           {lang("start-next-station")}
-        </button>
+        </Button>
       </div>
     </div>
   );

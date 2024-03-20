@@ -4,6 +4,7 @@ import styles from "./CreatePersonForm.module.scss";
 import { lang } from "@/utils/language/language";
 import Input from "../Input/Input";
 import SelectMenuInput from "../SelectMenuInput/SelectMenuInput";
+import Button from "../Button/Button";
 
 export type CreatePersonFormProps = {
   addPerson: (person: Person) => void;
@@ -45,7 +46,8 @@ export default function CreatePersonForm({
         placeholder={lang("startdruck")}
         error={startDruckError}
       />
-      <button
+      <Button
+        type="primary"
         data-umami-event="Create Person"
         onClick={() => {
           if (!isStartDruckSet || startDruck <= 0 || startDruck > 450) {
@@ -64,7 +66,7 @@ export default function CreatePersonForm({
         disabled={name.length == 0 || startDruck === undefined}
       >
         {lang("add-person")}
-      </button>
+      </Button>
     </div>
   );
 }

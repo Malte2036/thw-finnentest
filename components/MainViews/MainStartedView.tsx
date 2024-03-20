@@ -3,6 +3,7 @@ import styles from "./MainStartedView.module.scss";
 import { lang } from "@/utils/language/language";
 import { saveScoreBoardDataToStorage } from "@/utils/save";
 import StationView from "../StationCard/StationView";
+import Button from "../Button/Button";
 
 export type MainStartedViewProps = {
   scoreBoardDatas: ScoreBoardData[];
@@ -26,15 +27,15 @@ export default function MainStartedView({
           />
         ))}
       </div>
-      <button
+      <Button
+        type="secondary"
         data-umami-event="Reset Test"
         onClick={() =>
           window.confirm(lang("reset-test-confirmation")) && resetTest()
         }
-        className={styles.resetTestButton}
       >
         {lang("reset-test")}
-      </button>
+      </Button>
     </>
   );
 }

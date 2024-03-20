@@ -1,5 +1,6 @@
 import { lang } from "@/utils/language/language";
 import styles from "./MainWelcomeView.module.scss";
+import Button from "../Button/Button";
 
 export type MainWelcomeViewProps = {
   startNextView: () => void;
@@ -25,13 +26,14 @@ export default function MainWelcomeView({
         </a>
         .
       </p>
-      <button
+      <Button
         data-umami-event="Start Test"
         onClick={() => startNextView()}
-        className={styles.nextViewButton}
+        type="primary"
+        className={styles.startButton}
       >
         {lang("start-test")}
-      </button>
+      </Button>
     </div>
   );
 }
