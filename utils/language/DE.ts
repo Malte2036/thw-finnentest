@@ -12,7 +12,8 @@ export const DE: LanguageData = {
   "start-test": "Test starten",
 
   "reset-test": "Test zurücksetzen",
-  "reset-test-confirmation": "Willst du wirklich den Test zurücksetzen?",
+  "reset-test-confirmation":
+    "Willst du wirklich den Test zurücksetzen? Beim Zurücksetzen gehen alle Daten verloren. Am besten kopierst oder screenshotest du dir die Ergebnisse vorher.",
 
   submit: "Absenden",
   persons: "Teilnehmer",
@@ -42,4 +43,6 @@ export const DE: LanguageData = {
   "startdruck-error-range":
     "Der Startdruck muss zwischen 1 und 450 bar liegen.",
   "enddruck-error-range": "Der Enddruck muss zwischen 1 und 450 bar liegen.",
+
+  cancel: "Abbrechen",
 };
