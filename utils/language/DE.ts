@@ -2,8 +2,9 @@ import { LanguageData } from "./language";
 
 export const DE: LanguageData = {
   "app-title": "Finnentest",
+  "app-description-leading": "Der Finnentest:",
   "app-description":
-    "Anwendung zum aufzeichnen und tracken des Finnentests. Der Finnentest ist ein standartisierter Leistungstest für Atemschutzgeräteträger der Feuerwehr oder des THW.",
+    "Die App für Atemschutzgeräteträger der Feuerwehr und des THW. Zeichne deine Leistung beim Finnentest auf und tracke deinen Fortschritt.",
   "app-description-more": "Mehr zum Finnentest",
 
   "more-thw-tools": "Mehr THW Tools",

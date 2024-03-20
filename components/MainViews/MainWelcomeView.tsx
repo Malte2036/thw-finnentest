@@ -11,7 +11,10 @@ export default function MainWelcomeView({
   return (
     <div className={styles.container}>
       <p className={styles.description}>
-        {lang("app-description")} {lang("app-description-more")}{" "}
+        <span className={styles.descriptionLeading}>
+          {lang("app-description-leading")}
+        </span>{" "}
+        {lang("app-description")} <br /> {lang("app-description-more")}{" "}
         <a
           href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
           target="_blank"

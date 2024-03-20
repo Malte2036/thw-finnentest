@@ -114,10 +114,15 @@ const MainPage: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>THW Finnentest</title>
+        <title>Feuerwehr & THW Finnentest: Atemschutz Leistungstest App</title>
         <link rel="icon" href="/icon-256x256.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={lang("app-description")} />
+        <meta
+          name="description"
+          content={`${lang("app-description-leading")} ${lang(
+            "app-description"
+          )}`}
+        />
       </Head>
       <main className={styles.main}>
         <Header shrinkHeader={status !== Status.WELCOME} />
