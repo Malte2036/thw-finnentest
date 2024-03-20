@@ -16,6 +16,7 @@ type ButtonProps = {
   onClick: () => void;
   disabled?: boolean;
   className?: string;
+  "data-umami-event"?: string;
 };
 
 export default function Button(props: ButtonProps) {
@@ -27,7 +28,11 @@ export default function Button(props: ButtonProps) {
   };
 
   return (
-    <THWButtonComponent {...buttonProps} className={props.className}>
+    <THWButtonComponent
+      {...buttonProps}
+      data-umami-event={props["data-umami-event"]}
+      className={props.className}
+    >
       {props.children}
     </THWButtonComponent>
   );
