@@ -35,6 +35,7 @@ export default function MainAddPersonsView({
               ))}
             </ul>
             <button
+              data-umami-event="Start Test"
               onClick={() => setStarted()}
               disabled={persons.length === 0}
             >

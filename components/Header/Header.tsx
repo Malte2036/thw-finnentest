@@ -26,7 +26,10 @@ export default function Header({ shrinkHeader }: HeaderProps) {
             {lang("app-title")}
           </h1>
         </div>
-        <button className={styles.moreTHWToolsButton}>
+        <button
+          data-umami-event="Click More THW Tools"
+          className={styles.moreTHWToolsButton}
+        >
           <a href="https://thw-tools.de" target="_blank" rel="noreferrer">
             {lang("more-thw-tools")}
           </a>

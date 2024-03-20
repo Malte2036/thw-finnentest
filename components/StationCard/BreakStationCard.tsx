@@ -28,6 +28,7 @@ export default function BreakStationCard({
       {formatSecondsToMinutesAndSeconds(seconds)}
       <div className={styles.buttonsContainer}>
         <button
+          data-umami-event="Click Start Next Station"
           onClick={() => clickNextStation()}
           className={classNames(styles.secondaryButton, {
             [styles.timeover]: seconds <= 0,

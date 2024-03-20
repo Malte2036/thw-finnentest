@@ -33,11 +33,15 @@ export default function MainStationCard({
         })}
       >
         {seconds > -15 && (
-          <button onClick={() => clickNextStation(true)}>
+          <button
+            data-umami-event="Click Passed Station"
+            onClick={() => clickNextStation(true)}
+          >
             {lang("passed")}
           </button>
         )}
         <button
+          data-umami-event="Click Not Passed Station"
           className={styles.secondaryButton}
           onClick={() => clickNextStation(false)}
         >

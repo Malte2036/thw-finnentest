@@ -27,6 +27,7 @@ export default function MainStartedView({
         ))}
       </div>
       <button
+        data-umami-event="Reset Test"
         onClick={() =>
           window.confirm(lang("reset-test-confirmation")) && resetTest()
         }

@@ -16,6 +16,7 @@ export default function MainWelcomeView({
         </span>{" "}
         {lang("app-description")} <br /> {lang("app-description-more")}{" "}
         <a
+          data-umami-event="View more information"
           href="https://www.ffw-egestorf.de/index.php/einsatzabteilung/ausbildungsberichte/125-finnentest-fuer-atemschutzgeraetetraeger"
           target="_blank"
           rel="noreferrer"
@@ -24,7 +25,11 @@ export default function MainWelcomeView({
         </a>
         .
       </p>
-      <button onClick={() => startNextView()} className={styles.nextViewButton}>
+      <button
+        data-umami-event="Start Test"
+        onClick={() => startNextView()}
+        className={styles.nextViewButton}
+      >
         {lang("start-test")}
       </button>
     </div>

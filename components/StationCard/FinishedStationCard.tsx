@@ -31,6 +31,7 @@ export default function FinishedStationCard({
           error={endDruckError}
         />
         <button
+          data-umami-event="Submit End Druck"
           onClick={() => {
             if (endDruck === undefined || endDruck <= 0 || endDruck > 450) {
               setEndDruckError(lang("enddruck-error-range"));

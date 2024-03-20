@@ -11,6 +11,7 @@ export default function Footer() {
       </div>
       <div>
         <a
+          data-umami-event="Click Impressum"
           className={styles.copyrightName}
           href="https://thw-tools.de/impressum"
           target="_blank"

@@ -46,6 +46,7 @@ export default function CreatePersonForm({
         error={startDruckError}
       />
       <button
+        data-umami-event="Create Person"
         onClick={() => {
           if (!isStartDruckSet || startDruck <= 0 || startDruck > 450) {
             setStartDruckError(lang("startdruck-error-range"));
