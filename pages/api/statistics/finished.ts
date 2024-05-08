@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
 import sdk from "node-appwrite";
+
+export const runtime = "edge";
 
 export type StatisticsData = {
   startDruck: number;
@@ -8,7 +9,10 @@ export type StatisticsData = {
   sumTime: number;
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function handleRequest(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "POST") {
     const body = req.body as StatisticsData;
 
@@ -29,4 +33,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).end();
   }
-};
+}
