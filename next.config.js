@@ -12,6 +12,7 @@ const nextConfig = withPWA({
     locales: ["de"],
     defaultLocale: "de",
   },
+  output: "standalone",
 });
 
 module.exports = nextConfig;
